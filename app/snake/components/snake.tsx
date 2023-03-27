@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from "react"
 
-export default function Player() {
+export default function Snake() {
   const [positionX, setPositionX] = useState(0);
   const [positionY, setPositionY] = useState(0);
 

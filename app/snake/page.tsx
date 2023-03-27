@@ -1,11 +1,11 @@
-import Player from "./components/player"
+import Snake from "./components/snake"
 import Food from "./components/food"
 
 export default function Page() {
 
   return (
     <div>
-      <Player />
+      <Snake />
       <Food />
     </div >
   )

@@ -27,7 +27,7 @@ export default function SnakeComponent(food: GameObject[], setFood: Dispatch<Set
       return false
     }
     else if (snakeHead.positionY != foodItem.positionY) {
-      return true
+      return false
     }
     return true
   }

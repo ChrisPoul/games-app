@@ -1,6 +1,6 @@
 'use client'
-import SnakeComponent from "./components/snake"
-import GameBoardComponent from "./components/board";
+import SnakeComponent from "./components/Snake"
+import FoodComponent from "./components/Food";
 import { GameBoard, GameObject } from "./models";
 
 export default function Page() {
@@ -9,7 +9,7 @@ export default function Page() {
 
   return (
     <div>
-      {GameBoardComponent(gameBoard)}
+      {FoodComponent(gameBoard)}
       {SnakeComponent(gameBoard)}
     </div >
   )

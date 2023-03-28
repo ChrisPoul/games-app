@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { GameBoard } from "../models";
 
-export default function GameBoardComponent(gameBoard: GameBoard) {
+export default function FoodComponent(gameBoard: GameBoard) {
   return (
     <div>
       <button

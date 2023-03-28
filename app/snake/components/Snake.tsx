@@ -3,9 +3,9 @@ import { useState, useEffect } from "react"
 import { GameBoard, GameObject } from "../models";
 
 export default function SnakeComponent(gameBoard: GameBoard) {
-  let snakeHead = new GameObject(0, 0)
+  let initialSnakeHead = new GameObject(0, 0)
   const [snakeBody, setSnakeBody] = useState([
-    snakeHead
+    initialSnakeHead
   ]);
   let movementSpeed = 2
 

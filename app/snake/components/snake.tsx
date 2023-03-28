@@ -9,7 +9,7 @@ export default function SnakeComponent() {
     new GameObject(0, 0),
     new GameObject(0, 0)
   ])
-  const [snakeBody, setSnakeBodyParts] = useState(snake.body);
+  const [snakeBody, setSnakeBody] = useState(snake.body);
   let movementSpeed = 2
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function SnakeComponent() {
       else if (event.key === "ArrowDown") {
         snake.head.moveDown(movementSpeed)
       }
-      setSnakeBodyParts(snakeBody => [...snakeBody])
+      setSnakeBody(snakeBody => [...snakeBody])
     }
     document.addEventListener('keydown', handleKeyDown);
 

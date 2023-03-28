@@ -1,31 +1,30 @@
 'use client';
 import { useState, useEffect } from "react"
-import { GameObject, Snake } from "../models";
+import { GameBoard, GameObject } from "../models";
 
-export default function SnakeComponent() {
-  let snake = new Snake([
-    new GameObject(0, 0),
-    new GameObject(0, 0),
-    new GameObject(0, 0),
-    new GameObject(0, 0)
-  ])
-  const [snakeBody, setSnakeBody] = useState(snake.body);
+export default function SnakeComponent(gameBoard: GameBoard) {
+  let snakeHead = new GameObject(0, 0)
+  const [snakeBody, setSnakeBody] = useState([
+    snakeHead
+  ]);
   let movementSpeed = 2
 
   useEffect(() => {
     function handleKeyDown(event: any) {
-      snake.updateBody()
+      gameBoard.eat(snakeBody)
+      gameBoard.updateSnakeBody(snakeBody)
+      let snakeHead = snakeBody[0]
       if (event.key === "ArrowRight") {
-        snake.head.moveRight(movementSpeed)
+        snakeHead.moveRight(movementSpeed)
       }
       else if (event.key === "ArrowLeft") {
-        snake.head.moveLeft(movementSpeed)
+        snakeHead.moveLeft(movementSpeed)
       }
       else if (event.key === "ArrowUp") {
-        snake.head.moveUp(movementSpeed)
+        snakeHead.moveUp(movementSpeed)
       }
       else if (event.key === "ArrowDown") {
-        snake.head.moveDown(movementSpeed)
+        snakeHead.moveDown(movementSpeed)
       }
       setSnakeBody(snakeBody => [...snakeBody])
     }
@@ -34,7 +33,7 @@ export default function SnakeComponent() {
     return function cleanup() {
       document.removeEventListener('keydown', handleKeyDown);
     }
-  }, snakeBody);
+  }, [snakeBody]);
 
   return (
     <div>

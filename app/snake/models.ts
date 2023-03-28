@@ -20,20 +20,25 @@ export class GameObject {
   }
 }
 
-export class Snake {
-  body: GameObject[]
-  head: GameObject
-  constructor(body: GameObject[]) {
-    this.body = body
-    this.head = body[0]
+export class GameBoard {
+  food: GameObject
+  constructor(food: GameObject) {
+    this.food = food
   }
 
-  updateBody() {
-    for (let i = this.body.length - 1; i > 0; i--) {
-      let currentSnakeBodyPart = this.body[i]
-      let nextSnakeBodyPart = this.body[i - 1]
+  updateSnakeBody(snakeBody: GameObject[]) {
+    for (let i = snakeBody.length - 1; i > 0; i--) {
+      let currentSnakeBodyPart = snakeBody[i]
+      let nextSnakeBodyPart = snakeBody[i - 1]
       currentSnakeBodyPart.positionX = nextSnakeBodyPart.positionX
       currentSnakeBodyPart.positionY = nextSnakeBodyPart.positionY
+    }
+  }
+
+  eat(snakeBody: GameObject[]) {
+    let snakeHead = snakeBody[0]
+    if (snakeHead.positionX === this.food.positionX && snakeHead.positionY === this.food.positionY) {
+      snakeBody.push(new GameObject(0, 0))
     }
   }
 }

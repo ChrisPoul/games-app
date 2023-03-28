@@ -11,7 +11,7 @@ function updateSnake(snake: GameObject[]) {
   }
 }
 
-function snakeIsEating(snake: GameObject[], food: GameObject) {
+function snakeAteFood(snake: GameObject[], food: GameObject) {
   let snakeHead = snake[0]
   return (snakeHead.positionX === food.positionX && snakeHead.positionY === food.positionY)
 }
@@ -29,7 +29,7 @@ export default function SnakeComponent(food: GameObject) {
 
   useEffect(() => {
     function handleKeyDown(event: any) {
-      if (snakeIsEating(snake, food)) {
+      if (snakeAteFood(snake, food)) {
         growSnake(snake)
       }
       updateSnake(snake)
@@ -46,6 +46,7 @@ export default function SnakeComponent(food: GameObject) {
       else if (event.key === "ArrowDown") {
         snakeHead.moveDown(movementSpeed)
       }
+      else return
       setSnake(snake => [...snake])
     }
     document.addEventListener('keydown', handleKeyDown);
@@ -59,7 +60,7 @@ export default function SnakeComponent(food: GameObject) {
     <div>
       {snake.map((snakeBodyPart, index) => (
         <button
-          className="bg-red-500 p-4 rounded absolute"
+          className="bg-green-500 p-4 rounded absolute"
           style={{ left: snakeBodyPart.positionX + "em", top: snakeBodyPart.positionY + "em" }}
           key={index}
         ></button>

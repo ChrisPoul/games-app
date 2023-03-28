@@ -1,51 +1,50 @@
 'use client';
 import { useState, useEffect } from "react"
+import { GameObject, Snake } from "../models";
 
-export default function Snake() {
-  const [positionX, setPositionX] = useState(0);
-  const [positionY, setPositionY] = useState(0);
+export default function SnakeComponent() {
+  let snake = new Snake([
+    new GameObject(0, 0),
+    new GameObject(0, 0),
+    new GameObject(0, 0),
+    new GameObject(0, 0)
+  ])
+  const [snakeBody, setSnakeBodyParts] = useState(snake.body);
+  let movementSpeed = 2
 
   useEffect(() => {
-    let movement_speed = 2
-    function moveRight() {
-      setPositionX(positionX + movement_speed)
-    }
-    function moveLeft() {
-      setPositionX(positionX - movement_speed)
-    }
-    function moveUp() {
-      setPositionY(positionY - movement_speed)
-    }
-    function moveDown() {
-      setPositionY(positionY + movement_speed)
-    }
     function handleKeyDown(event: any) {
+      snake.updateBody()
       if (event.key === "ArrowRight") {
-        moveRight()
+        snake.head.moveRight(movementSpeed)
       }
       else if (event.key === "ArrowLeft") {
-        moveLeft()
+        snake.head.moveLeft(movementSpeed)
       }
       else if (event.key === "ArrowUp") {
-        moveUp()
+        snake.head.moveUp(movementSpeed)
       }
       else if (event.key === "ArrowDown") {
-        moveDown()
+        snake.head.moveDown(movementSpeed)
       }
+      setSnakeBodyParts(snakeBody => [...snakeBody])
     }
     document.addEventListener('keydown', handleKeyDown);
 
     return function cleanup() {
       document.removeEventListener('keydown', handleKeyDown);
     }
-  }, [positionX, positionY]);
+  }, snakeBody);
 
   return (
     <div>
-      <button
-        className="bg-red-500 p-4 rounded hover:bg-red-700 hover:text-white"
-        style={{ position: "absolute", left: positionX + "em", top: positionY + "em" }}
-      ></button>
+      {snakeBody.map((snakeBodyPart, index) => (
+        <button
+          className="bg-red-500 p-4 rounded absolute"
+          style={{ left: snakeBodyPart.positionX + "em", top: snakeBodyPart.positionY + "em" }}
+          key={index}
+        ></button>
+      ))}
     </div >
   )
 }

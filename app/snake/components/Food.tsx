@@ -8,7 +8,7 @@ export default function FoodComponent(food: GameObject[], setFood: Dispatch<SetS
       {food.map((foodItem, index) => (
         <button
           className="bg-red-500 p-4 rounded absolute"
-          style={{ top: foodItem.positionY * 2 + "em", left: foodItem.positionX * 2 + "em" }}
+          style={{ top: foodItem.positionY + "em", left: foodItem.positionX + "em" }}
           id={"food-" + index}
           key={index}
         ></button>

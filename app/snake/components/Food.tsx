@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { GameBoard } from "../models";
+import { GameObject } from "../models";
 
-export default function FoodComponent(gameBoard: GameBoard) {
+export default function FoodComponent(food: GameObject) {
   return (
     <div>
       <button
         className="bg-red-500 p-4 rounded absolute"
-        style={{ top: gameBoard.food.positionY + "em", left: gameBoard.food.positionX + "em" }}
+        style={{ top: food.positionY + "em", left: food.positionX + "em" }}
       ></button>
     </div >
   )

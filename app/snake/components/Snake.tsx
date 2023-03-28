@@ -1,19 +1,39 @@
 'use client';
 import { useState, useEffect } from "react"
-import { GameBoard, GameObject } from "../models";
+import { GameObject } from "../models";
 
-export default function SnakeComponent(gameBoard: GameBoard) {
+function updateSnake(snake: GameObject[]) {
+  for (let i = snake.length - 1; i > 0; i--) {
+    let currentSnakeBodyPart = snake[i]
+    let nextSnakeBodyPart = snake[i - 1]
+    currentSnakeBodyPart.positionX = nextSnakeBodyPart.positionX
+    currentSnakeBodyPart.positionY = nextSnakeBodyPart.positionY
+  }
+}
+
+function snakeIsEating(snake: GameObject[], food: GameObject) {
+  let snakeHead = snake[0]
+  return (snakeHead.positionX === food.positionX && snakeHead.positionY === food.positionY)
+}
+
+function growSnake(snake: GameObject[]) {
+  snake.push(new GameObject(0, 0))
+}
+
+export default function SnakeComponent(food: GameObject) {
   let initialSnakeHead = new GameObject(0, 0)
-  const [snakeBody, setSnakeBody] = useState([
+  const [snake, setSnake] = useState([
     initialSnakeHead
   ]);
   let movementSpeed = 2
 
   useEffect(() => {
     function handleKeyDown(event: any) {
-      gameBoard.eat(snakeBody)
-      gameBoard.updateSnakeBody(snakeBody)
-      let snakeHead = snakeBody[0]
+      if (snakeIsEating(snake, food)) {
+        growSnake(snake)
+      }
+      updateSnake(snake)
+      let snakeHead = snake[0]
       if (event.key === "ArrowRight") {
         snakeHead.moveRight(movementSpeed)
       }
@@ -26,18 +46,18 @@ export default function SnakeComponent(gameBoard: GameBoard) {
       else if (event.key === "ArrowDown") {
         snakeHead.moveDown(movementSpeed)
       }
-      setSnakeBody(snakeBody => [...snakeBody])
+      setSnake(snake => [...snake])
     }
     document.addEventListener('keydown', handleKeyDown);
 
     return function cleanup() {
       document.removeEventListener('keydown', handleKeyDown);
     }
-  }, [snakeBody]);
+  }, [snake]);
 
   return (
     <div>
-      {snakeBody.map((snakeBodyPart, index) => (
+      {snake.map((snakeBodyPart, index) => (
         <button
           className="bg-red-500 p-4 rounded absolute"
           style={{ left: snakeBodyPart.positionX + "em", top: snakeBodyPart.positionY + "em" }}

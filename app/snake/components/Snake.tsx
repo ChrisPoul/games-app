@@ -11,32 +11,24 @@ export default function SnakeComponent(food: GameObject[], setFood: Dispatch<Set
   const [snake, setSnake] = useState([
     initialSnakeHead
   ]);
-  let movementSpeed = 1
 
   useEffect(() => {
     function handleKeyDown(event: any) {
+      const keyPressed: string = event.key
+      if (!keyPressed.includes("Arrow")) return
+      snake[0].direction = keyPressed
+    }
+    const interval = setInterval(() => {
       handleSnakeEatingFood()
       updateSnake()
-      let snakeHead = snake[0]
-      if (event.key === "ArrowRight") {
-        snakeHead.moveRight(movementSpeed)
-      }
-      else if (event.key === "ArrowLeft") {
-        snakeHead.moveLeft(movementSpeed)
-      }
-      else if (event.key === "ArrowUp") {
-        snakeHead.moveUp(movementSpeed)
-      }
-      else if (event.key === "ArrowDown") {
-        snakeHead.moveDown(movementSpeed)
-      }
-      else return
+      snake[0].move()
       setSnake(snake => [...snake])
-    }
+    }, 200)
     document.addEventListener('keydown', handleKeyDown);
 
     return function cleanup() {
       document.removeEventListener('keydown', handleKeyDown);
+      clearInterval(interval)
     }
   }, [snake]);
 
@@ -44,7 +36,7 @@ export default function SnakeComponent(food: GameObject[], setFood: Dispatch<Set
     for (let index = 0; index < food.length; index++) {
       let foodItem = food[index]
       if (snakeAteFoodItem(foodItem)) {
-        growSnake(snake)
+        growSnake()
         deleteFoodItem(index)
         createNewFoodItem()
       }
@@ -59,7 +51,7 @@ export default function SnakeComponent(food: GameObject[], setFood: Dispatch<Set
     return true
   }
 
-  function growSnake(snake: GameObject[]) {
+  function growSnake() {
     snake.push(new GameObject(0, 0))
   }
 

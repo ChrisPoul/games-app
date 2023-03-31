@@ -1,21 +1,27 @@
+const distance = 1
+
 export class GameObject {
   positionX: number
   positionY: number
+  direction: string
   constructor(positionX: number, positionY: number) {
     this.positionX = positionX
     this.positionY = positionY
+    this.direction = "Right"
   }
 
-  moveRight(distance: number) {
-    this.positionX = this.positionX + distance
-  }
-  moveLeft(distance: number) {
-    this.positionX = this.positionX - distance
-  }
-  moveUp(distance: number) {
-    this.positionY = this.positionY - distance
-  }
-  moveDown(distance: number) {
-    this.positionY = this.positionY + distance
+  move() {
+    if (this.direction.includes("Right")) {
+      this.positionX = this.positionX + distance
+    }
+    if (this.direction.includes("Left")) {
+      this.positionX = this.positionX - distance
+    }
+    if (this.direction.includes("Up")) {
+      this.positionY = this.positionY - distance
+    }
+    if (this.direction.includes("Down")) {
+      this.positionY = this.positionY + distance
+    }
   }
 }

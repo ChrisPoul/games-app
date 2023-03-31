@@ -49,6 +49,7 @@ export default function SnakeComponent(food: GameObject[], setFood: Dispatch<Set
       let snakeBodyPart = snake[index]
       if (snakeColided(snakeBodyPart)) {
         alert("Perdiste por tonto")
+        location.reload()
       }
     }
   }

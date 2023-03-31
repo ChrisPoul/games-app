@@ -20,6 +20,7 @@ export default function SnakeComponent(food: GameObject[], setFood: Dispatch<Set
     }
     const interval = setInterval(() => {
       handleSnakeEatingFood()
+      handleSnakeColition()
       updateSnake()
       snake[0].move()
       setSnake(snake => [...snake])
@@ -41,6 +42,22 @@ export default function SnakeComponent(food: GameObject[], setFood: Dispatch<Set
         createNewFoodItem()
       }
     }
+  }
+
+  function handleSnakeColition() {
+    for (let index = 1; index < snake.length; index++) {
+      let snakeBodyPart = snake[index]
+      if (snakeColided(snakeBodyPart)) {
+        alert("Perdiste por tonto")
+      }
+    }
+  }
+
+  function snakeColided(snakeBodyPart: GameObject) {
+    if (snake[0].positionX != snakeBodyPart.positionX) return false
+    else if (snake[0].positionY != snakeBodyPart.positionY) return false
+
+    return true
   }
 
   function snakeAteFoodItem(foodItem: GameObject) {

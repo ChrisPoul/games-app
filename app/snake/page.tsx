@@ -13,8 +13,8 @@ export default function GameMap() {
 
   useEffect(() => {
     let initialFoodItem = food[0]
-    initialFoodItem.positionX = getRandomInt(10)
-    initialFoodItem.positionY = getRandomInt(10)
+    initialFoodItem.positionX = getRandomInt()
+    initialFoodItem.positionY = getRandomInt()
     setFood([initialFoodItem])
   }, [])
 

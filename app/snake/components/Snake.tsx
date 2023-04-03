@@ -20,7 +20,7 @@ export default function SnakeComponent(food: GameObject[], setFood: Dispatch<Set
     }
     const interval = setInterval(() => {
       handleSnakeEatingFood()
-      handleSnakeColition()
+      handleSnakeColitionWithItsSelf()
       updateSnake()
       snake[0].move()
       setSnake(snake => [...snake])
@@ -31,7 +31,7 @@ export default function SnakeComponent(food: GameObject[], setFood: Dispatch<Set
       document.removeEventListener('keydown', handleKeyDown);
       clearInterval(interval)
     }
-  }, [snake]);
+  }, [snake])
 
   function handleSnakeEatingFood() {
     for (let index = 0; index < food.length; index++) {
@@ -44,27 +44,36 @@ export default function SnakeComponent(food: GameObject[], setFood: Dispatch<Set
     }
   }
 
-  function handleSnakeColition() {
+  function handleSnakeColitionWithItsSelf() {
+    let snakeHead = snake[0]
     for (let index = 1; index < snake.length; index++) {
       let snakeBodyPart = snake[index]
-      if (snakeColided(snakeBodyPart)) {
+      if (gameObjectsColide(snakeHead, snakeBodyPart)) {
         alert("Perdiste por tonto")
         location.reload()
       }
     }
   }
 
-  function snakeColided(snakeBodyPart: GameObject) {
-    if (snake[0].positionX != snakeBodyPart.positionX) return false
-    else if (snake[0].positionY != snakeBodyPart.positionY) return false
+  function gameObjectsColide(firstGameObject: GameObject, secondGameObject: GameObject) {
+    if (firstGameObject.positionX != secondGameObject.positionX) {
+      return false
+    }
+    else if (firstGameObject.positionY != secondGameObject.positionY) {
+      return false
+    }
 
     return true
   }
 
   function snakeAteFoodItem(foodItem: GameObject) {
     let snakeHead = snake[0]
-    if (snakeHead.positionX != foodItem.positionX) return false
-    else if (snakeHead.positionY != foodItem.positionY) return false
+    if (snakeHead.positionX != foodItem.positionX) {
+      return false
+    }
+    else if (snakeHead.positionY != foodItem.positionY) {
+      return false
+    }
 
     return true
   }
@@ -79,10 +88,25 @@ export default function SnakeComponent(food: GameObject[], setFood: Dispatch<Set
   }
 
   function createNewFoodItem() {
-    const positionX = getRandomInt(10)
-    const positionY = getRandomInt(10)
-    food.push(new GameObject(positionX, positionY))
+    const positionX = getRandomInt()
+    const positionY = getRandomInt()
+    let foodItem = new GameObject(positionX, positionY)
+    if (foodItemColidesWithSnake(foodItem)) {
+      foodItem.positionX = getRandomInt()
+      foodItem.positionY = getRandomInt()
+    }
+    food.push(foodItem)
     setFood(food => [...food])
+  }
+
+  function foodItemColidesWithSnake(foodItem: GameObject) {
+    for (let snakeBodyPart of snake) {
+      if (gameObjectsColide(snakeBodyPart, foodItem)) {
+        return true
+      }
+    }
+
+    return false
   }
 
   function updateSnake() {

@@ -23,8 +23,8 @@ export default function GameMap() {
 
   return (
     <div>
-      {FoodComponent(food, setFood)}
-      {SnakeComponent(food, setFood)}
+      {FoodComponent(food)}
+      {SnakeComponent(food)}
     </div >
   )
 }

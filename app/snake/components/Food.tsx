@@ -1,7 +1,6 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
 import { GameObject } from "../models";
 
-export default function FoodComponent(food: GameObject[], setFood: Dispatch<SetStateAction<GameObject[]>>) {
+export default function FoodComponent(food: GameObject[]) {
 
   return (
     <div>

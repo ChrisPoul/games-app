@@ -15,8 +15,9 @@ export default function SnakeComponent(food: GameObject[], setFood: Dispatch<Set
   useEffect(() => {
     function handleKeyDown(event: any) {
       const keyPressed: string = event.key
-      if (!keyPressed.includes("Arrow")) return
-      snake[0].direction = keyPressed
+      if (keyPressedIsValid(keyPressed)) {
+        snake[0].direction = keyPressed
+      }
     }
     const interval = setInterval(() => {
       handleSnakeEatingFood()
@@ -32,6 +33,36 @@ export default function SnakeComponent(food: GameObject[], setFood: Dispatch<Set
       clearInterval(interval)
     }
   }, [snake])
+
+  function keyPressedIsValid(keyPressed: string) {
+    if (!keyPressed.includes("Arrow")) {
+      return false
+    }
+    if (snake.length === 1) {
+      return true
+    }
+    if (keyDirectionIsOpositeToCurrentDirection(keyPressed)) {
+      return false
+    }
+
+    return true
+  }
+
+  function keyDirectionIsOpositeToCurrentDirection(keyPressed: string) {
+    if (keyPressed.includes("Left") && snake[0].direction.includes("Right")) {
+      return true
+    }
+    else if (keyPressed.includes("Right") && snake[0].direction.includes("Left")) {
+      return true
+    }
+    else if (keyPressed.includes("Up") && snake[0].direction.includes("Down")) {
+      return true
+    }
+    else if (keyPressed.includes("Down") && snake[0].direction.includes("Up")) {
+      return true
+    }
+    return false
+  }
 
   function handleSnakeEatingFood() {
     for (let index = 0; index < food.length; index++) {

@@ -39,7 +39,7 @@ export default function SnakeComponent(food: GameObject[], setFood: Dispatch<Set
       if (snakeAteFoodItem(foodItem)) {
         growSnake()
         deleteFoodItem(index)
-        createNewFoodItem()
+        addNewFoodItem()
       }
     }
   }
@@ -87,16 +87,26 @@ export default function SnakeComponent(food: GameObject[], setFood: Dispatch<Set
     setFood(food => [...food])
   }
 
-  function createNewFoodItem() {
+  function addNewFoodItem() {
+    const foodItem = getNewFoodItem()
+    food.push(foodItem)
+    setFood(food => [...food])
+  }
+
+  function getNewFoodItem() {
     const positionX = getRandomInt()
     const positionY = getRandomInt()
     let foodItem = new GameObject(positionX, positionY)
+    handleFoodItemColidesWithSnake(foodItem)
+
+    return foodItem
+  }
+
+  function handleFoodItemColidesWithSnake(foodItem: GameObject) {
     if (foodItemColidesWithSnake(foodItem)) {
       foodItem.positionX = getRandomInt()
       foodItem.positionY = getRandomInt()
     }
-    food.push(foodItem)
-    setFood(food => [...food])
   }
 
   function foodItemColidesWithSnake(foodItem: GameObject) {

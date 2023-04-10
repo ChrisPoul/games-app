@@ -11,21 +11,23 @@ export default function SnakeComponent(food: GameObject[], setFood: Dispatch<Set
   const [snake, setSnake] = useState([
     initialSnakeHead
   ]);
+  let newDirection = snake[0].direction
 
   useEffect(() => {
     function handleKeyDown(event: any) {
       const keyPressed: string = event.key
       if (keyPressedIsValid(keyPressed)) {
-        snake[0].direction = keyPressed
+        newDirection = keyPressed
       }
     }
     const interval = setInterval(() => {
       handleSnakeEatingFood()
       handleSnakeColitionWithItsSelf()
       updateSnake()
+      snake[0].direction = newDirection
       snake[0].move()
       setSnake(snake => [...snake])
-    }, 140)
+    }, 599)
     document.addEventListener('keydown', handleKeyDown);
 
     return function cleanup() {

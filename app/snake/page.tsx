@@ -8,15 +8,10 @@ import { getRandomInt } from "@/app/common";
 
 export default function GameMap() {
   let [food, setFood] = useState([
-    new GameObject(0, 0)
+    new GameObject(2, 10),
+    new GameObject(3, 6),
+    new GameObject(2, 4),
   ])
-
-  useEffect(() => {
-    let initialFoodItem = food[0]
-    initialFoodItem.positionX = getRandomInt()
-    initialFoodItem.positionY = getRandomInt()
-    setFood([initialFoodItem])
-  }, [])
 
   return (
     <div>

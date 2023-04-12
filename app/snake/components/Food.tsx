@@ -1,6 +1,6 @@
-import { GameObject } from "../models";
+import Food from "../models/food";
 
-export default function FoodComponent(food: GameObject[]) {
+export default function FoodComponent(food: Food) {
 
   return (
     <div>

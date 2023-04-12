@@ -1,30 +1,53 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from "react";
-import SnakeComponent from "./components/Snake"
-import FoodComponent from "./components/Food";
+import {
+  useState, useEffect
+} from "react"
+import Snake from "./models/snake";
+import Food from "./models/food";
+import GameBoard from "./models/gameBoard";
 import { GameObject } from "./models";
-import { getRandomInt } from "@/app/common";
+import SnakeComponent from "./components/Snake";
+import FoodComponent from "./components/Food";
 
-export default function GameMap() {
-  let [food, setFood] = useState([
+export default function GameBoardComponent() {
+  let [food, setFood] = useState(new Food(
     new GameObject(6, 3)
-  ])
+  ))
+  const [snake, setSnake] = useState(new Snake(
+    new GameObject(0, 0)
+  ))
+  const gameBoard = new GameBoard(snake, food)
+  let newDirection = snake.head.direction
 
   useEffect(() => {
-    for (let i = 0; i < 3; i++) {
-      let foodItem = new GameObject(
-        getRandomInt(), getRandomInt()
-      )
-      food.push(foodItem)
+    function handleKeyDown(event: any) {
+      const keyPressed: string = event.key
+      if (gameBoard.keyPressedIsValid(keyPressed)) {
+        newDirection = keyPressed
+      }
     }
-    setFood(food)
-  }, [])
+    const interval = setInterval(() => {
+      gameBoard.handleSnakeEatingFood()
+      snake.handleColitionWithItsSelf()
+      snake.update()
+      snake.head.direction = newDirection
+      snake.head.move()
+      setSnake(snake => new Snake(...snake))
+    }, 140)
+    document.addEventListener('keydown', handleKeyDown);
+
+    return function cleanup() {
+      document.removeEventListener('keydown', handleKeyDown);
+      clearInterval(interval)
+    }
+  }, [snake])
+
 
   return (
     <div>
       {FoodComponent(food)}
-      {SnakeComponent(food)}
+      {SnakeComponent(snake)}
     </div >
   )
 }

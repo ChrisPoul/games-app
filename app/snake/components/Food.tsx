@@ -1,4 +1,5 @@
 import Food from "../models/food";
+import { config } from "@/app/config";
 
 export default function FoodComponent(food: Food) {
 
@@ -6,8 +7,12 @@ export default function FoodComponent(food: Food) {
     <div>
       {food.map((foodItem, index) => (
         <button
-          className="bg-red-500 p-4 rounded absolute"
-          style={{ top: foodItem.positionY * 2 + "em", left: foodItem.positionX * 2 + "em" }}
+          className="bg-red-500 rounded absolute"
+          style={{
+            left: foodItem.positionX * config.gameObjectSize + config.gameObjectSizeUnit,
+            top: foodItem.positionY * config.gameObjectSize + config.gameObjectSizeUnit,
+            padding: config.gameObjectSize / 2 + config.gameObjectSizeUnit
+          }}
           id={"food-" + index}
           key={index}
         ></button>

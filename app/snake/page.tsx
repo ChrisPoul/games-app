@@ -7,12 +7,12 @@ import Snake from "./models/snake";
 import Food from "./models/food";
 import GameBoard from "./models/gameBoard";
 import { GameObject } from "./models";
-import SnakeComponent from "./components/Snake";
-import FoodComponent from "./components/Food";
+import GameBoardComponent from "./components/GameBoard";
+import { config } from "../config";
 
-export default function GameBoardComponent() {
+export default function Page() {
   let [food, setFood] = useState(new Food(
-    new GameObject(6, 3)
+    new GameObject(6, 4)
   ))
   const [snake, setSnake] = useState(new Snake(
     new GameObject(0, 0)
@@ -34,7 +34,7 @@ export default function GameBoardComponent() {
       snake.head.direction = newDirection
       snake.head.move()
       setSnake(snake => new Snake(...snake))
-    }, 140)
+    }, config.milisecondsPerFrame)
     document.addEventListener('keydown', handleKeyDown);
 
     return function cleanup() {
@@ -43,11 +43,9 @@ export default function GameBoardComponent() {
     }
   }, [snake])
 
-
   return (
     <div>
-      {FoodComponent(food)}
-      {SnakeComponent(snake)}
-    </div >
+      {GameBoardComponent(snake, food)}
+    </div>
   )
 }

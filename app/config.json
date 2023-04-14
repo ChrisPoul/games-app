@@ -1,5 +1,7 @@
 {
-  "gameObjectSize": 3,
-  "gameObjectSizeUnit": "vw",
-  "milisecondsPerFrame": 300
+  "gameObjectSize": 2,
+  "gameMapWidth": 20,
+  "gameMapHeight": 15,
+  "gameObjectSizeUnit": "em",
+  "milisecondsPerFrame": 150
 }

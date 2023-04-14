@@ -33,10 +33,10 @@ export default function Page() {
     }
     const interval = setInterval(() => {
       gameBoard.handleSnakeEatingFood()
-      snake.handleColitionWithItsSelf()
       snake.update()
       snake.head.direction = newDirection
       snake.head.move()
+      snake.handleColitionWithItsSelf()
       setSnake(snake => new Snake(...snake))
     }, config.milisecondsPerFrame)
     document.addEventListener('keydown', handleKeyDown);

@@ -3,5 +3,5 @@
   "gameMapWidth": 20,
   "gameMapHeight": 15,
   "gameObjectSizeUnit": "em",
-  "milisecondsPerFrame": 150
+  "milisecondsPerFrame": 140
 }

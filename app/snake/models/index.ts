@@ -9,7 +9,7 @@ export class GameObject {
   constructor(positionX: number, positionY: number) {
     this.positionX = positionX
     this.positionY = positionY
-    this.direction = "Right"
+    this.direction = "Down"
   }
 
   move() {

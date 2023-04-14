@@ -1,6 +1,6 @@
 interface Config {
-  gameObjectSize: number
-  gameObjectSizeUnit: string
+  gameSizeScale: number
+  gameSizeUnit: string
   gameMapWidth: number
   gameMapHeight: number
   snakeMovementSpead: string

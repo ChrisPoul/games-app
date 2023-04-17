@@ -3,7 +3,6 @@ import Food from "../models/food";
 import Snake from "../models/snake";
 import FoodComponent from "./Food";
 import SnakeComponent from "./Snake";
-import GameOverScreenComponent from "./GameOverScreen";
 
 export default function GameBoardComponent(snake: Snake, food: Food) {
 
@@ -17,7 +16,6 @@ export default function GameBoardComponent(snake: Snake, food: Food) {
     >
       {FoodComponent(food)}
       {SnakeComponent(snake)}
-      {GameOverScreenComponent()}
     </div>
   )
 }

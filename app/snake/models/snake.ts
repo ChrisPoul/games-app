@@ -26,13 +26,13 @@ export default class Snake extends Array<GameObject> {
     return false
   }
 
-  handleColitionWithItsSelf() {
+  snakeCollidesWithItsSelf() {
     for (let bodyPart of this.body) {
       if (gameObjectsColide(this.head, bodyPart)) {
-        alert("Perdiste por tonto")
-        location.reload()
+        return true
       }
     }
+    return false
   }
 
   ateFoodItem(foodItem: GameObject) {
@@ -42,7 +42,6 @@ export default class Snake extends Array<GameObject> {
     else if (this.head.positionY != foodItem.positionY) {
       return false
     }
-
     return true
   }
 

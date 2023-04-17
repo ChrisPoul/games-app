@@ -7,9 +7,10 @@ import Snake from "./models/snake";
 import { GameObject } from "./models";
 import GameBoard from "./models/gameBoard";
 import GameBoardComponent from "./components/GameBoard";
+import GameOverScreenComponent from "./components/GameOverScreen";
 
 export default function Page() {
-  let [food, setFood] = useState(new Food(
+  const [food, setFood] = useState(new Food(
     new GameObject(
       Math.floor(config.gameMapWidth / 2),
       Math.floor(config.gameMapHeight / 2)
@@ -21,6 +22,7 @@ export default function Page() {
       0
     )
   ))
+  const [gameOverScreenStatus, setGameOverScreenStatus] = useState("hidden")
   const gameBoard = new GameBoard(snake, food)
   let newDirection = snake.head.direction
 
@@ -36,7 +38,9 @@ export default function Page() {
       snake.update()
       snake.head.direction = newDirection
       snake.head.move()
-      snake.handleColitionWithItsSelf()
+      if (snake.snakeCollidesWithItsSelf()) {
+        setGameOverScreenStatus("flex")
+      }
       setSnake(snake => new Snake(...snake))
     }, config.milisecondsPerFrame)
     document.addEventListener('keydown', handleKeyDown);
@@ -48,8 +52,9 @@ export default function Page() {
   }, [snake])
 
   return (
-    <div className="bg-amber-300 h-screen pt-6">
+    <div className="bg-amber-300 h-screen pt-6 z--10">
       {GameBoardComponent(snake, food)}
+      {GameOverScreenComponent(gameOverScreenStatus)}
     </div>
   )
 }

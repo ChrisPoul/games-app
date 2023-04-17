@@ -1,6 +1,7 @@
 import { GameObject, gameObjectsColide } from "."
 import { getRandomInt } from "@/app/common"
 import Snake from "./snake"
+import { config } from "@/app/config"
 
 export default class Food extends Array<GameObject> {
   addNewFoodItem(snake: Snake) {
@@ -14,8 +15,8 @@ export default class Food extends Array<GameObject> {
   }
 
   getNewFoodItem() {
-    const positionX = getRandomInt()
-    const positionY = getRandomInt()
+    const positionX = getRandomInt(config.gameMapWidth)
+    const positionY = getRandomInt(config.gameMapHeight)
     let foodItem = new GameObject(positionX, positionY)
 
     return foodItem

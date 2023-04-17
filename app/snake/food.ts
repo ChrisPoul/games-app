@@ -1,4 +1,5 @@
-import { GameObject, gameObjectsColide } from "."
+import { GameObject } from "./gameObject"
+import { gameObjectsColide } from "./game"
 import { getRandomInt } from "@/app/common"
 import Snake from "./snake"
 import { config } from "@/app/config"

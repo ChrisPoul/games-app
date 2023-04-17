@@ -1,10 +1,10 @@
 import { config } from "@/app/config";
-import Food from "../models/food";
-import Snake from "../models/snake";
+import Food from "../food";
+import Snake from "../snake";
 import FoodComponent from "./Food";
 import SnakeComponent from "./Snake";
 
-export default function GameBoardComponent(snake: Snake, food: Food) {
+export default function GameMapComponent(snake: Snake, food: Food) {
 
   return (
     <div

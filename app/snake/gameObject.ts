@@ -12,17 +12,17 @@ export class GameObject {
     this.direction = "Down"
   }
 
-  move() {
-    if (this.direction.includes("Right")) {
+  updatePosition(direction: string) {
+    if (direction.includes("Right")) {
       this.positionX = this.positionX + distance
     }
-    else if (this.direction.includes("Left")) {
+    else if (direction.includes("Left")) {
       this.positionX = this.positionX - distance
     }
-    if (this.direction.includes("Up")) {
+    if (direction.includes("Up")) {
       this.positionY = this.positionY - distance
     }
-    else if (this.direction.includes("Down")) {
+    else if (direction.includes("Down")) {
       this.positionY = this.positionY + distance
     }
     if (this.positionX >= config.gameMapWidth) {
@@ -38,15 +38,4 @@ export class GameObject {
       this.positionY = 0
     }
   }
-}
-
-export function gameObjectsColide(firstGameObject: GameObject, secondGameObject: GameObject) {
-  if (firstGameObject.positionX != secondGameObject.positionX) {
-    return false
-  }
-  else if (firstGameObject.positionY != secondGameObject.positionY) {
-    return false
-  }
-
-  return true
 }

@@ -1,32 +1,18 @@
-import { GameObject, gameObjectsColide } from "."
-import { getRandomInt } from "@/app/common"
+import { GameObject } from "./gameObject"
+import { gameObjectsColide } from "./game"
 
 export default class Snake extends Array<GameObject> {
   head: GameObject
   body: GameObject[]
+  tail: GameObject
   constructor(...bodyParts: GameObject[]) {
     super(...bodyParts)
     this.head = bodyParts[0]
     this.body = bodyParts.slice(1)
+    this.tail = bodyParts[this.length - 1]
   }
 
-  keyDirectionIsOpositeToCurrentDirection(keyPressed: string) {
-    if (keyPressed.includes("Left") && this.head.direction.includes("Right")) {
-      return true
-    }
-    else if (keyPressed.includes("Right") && this.head.direction.includes("Left")) {
-      return true
-    }
-    else if (keyPressed.includes("Up") && this.head.direction.includes("Down")) {
-      return true
-    }
-    else if (keyPressed.includes("Down") && this.head.direction.includes("Up")) {
-      return true
-    }
-    return false
-  }
-
-  snakeCollidesWithItsSelf() {
+  collidesWithItsSelf() {
     for (let bodyPart of this.body) {
       if (gameObjectsColide(this.head, bodyPart)) {
         return true

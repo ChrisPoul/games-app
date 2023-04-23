@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react"
 import { config } from "@/app/config";
 import Food from "./food";
-import Snake from "./snake";
 import { GameObject } from "./gameObject";
-import { handleGameCicle, keyPressedIsValid, endGame } from "./game";
+import {
+  handleGameCicle, keyPressedIsValid,
+  endGame, snakeCollidesWithItsSelf
+} from "./game";
 import GameMapComponent from "./components/GameMap";
 import GameOverScreenComponent from "./components/GameOverScreen";
 
@@ -16,14 +18,14 @@ export default function Page() {
       Math.floor(config.gameMapHeight / 2)
     )
   ))
-  const [snake, setSnake] = useState(new Snake(
+  const [snake, setSnake] = useState([
     new GameObject(
       Math.floor(config.gameMapWidth / 2),
       0
     )
-  ))
+  ])
   const [gameOverScreenStatus, setGameOverScreenStatus] = useState("hidden")
-  let newDirection = snake.head.direction
+  let newDirection = snake[0].direction
 
   useEffect(() => {
     function handleKeyDown(event: any) {
@@ -33,16 +35,13 @@ export default function Page() {
       }
     }
     const interval = setInterval(() => {
-      snake.head.direction = newDirection
-      handleGameCicle(snake, food, snake.head.direction)
-      if (snake.collidesWithItsSelf()) {
+      snake[0].direction = newDirection
+      handleGameCicle(snake, food, snake[0].direction)
+      if (snakeCollidesWithItsSelf(snake)) {
         endGame(snake, food)
-        console.log(snake.head.direction)
-        if (snake.tail.direction === "") {
-          setGameOverScreenStatus("flex")
-        }
+        setGameOverScreenStatus("flex")
       }
-      setSnake(snake => new Snake(...snake))
+      setSnake(snake => [...snake])
     }, config.milisecondsPerFrame)
     document.addEventListener('keydown', handleKeyDown);
 

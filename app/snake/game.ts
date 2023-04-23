@@ -1,5 +1,60 @@
-import Food from "./food";
 import { GameObject } from "./gameObject";
+import { getRandomInt } from "../common";
+import { config } from "../config";
+
+function addNewFoodItem(food: GameObject[], snake: GameObject[]) {
+  const foodItem = getNewFoodItem()
+  if (foodItemColides(food, foodItem, snake)) {
+    addNewFoodItem(food, snake)
+  }
+  else {
+    food.push(foodItem)
+  }
+}
+
+function getNewFoodItem() {
+  const positionX = getRandomInt(config.gameMapWidth)
+  const positionY = getRandomInt(config.gameMapHeight)
+  let foodItem = new GameObject(positionX, positionY)
+
+  return foodItem
+}
+
+function foodItemColides(food: GameObject[], foodItem: GameObject, snake: GameObject[]) {
+  if (foodItemColidesWithSnake(foodItem, snake)) {
+    return true
+  }
+  else if (foodItemColidesWithFood(food, foodItem)) {
+    return true
+  }
+
+  return false
+}
+
+function foodItemColidesWithSnake(foodItem: GameObject, snake: GameObject[]) {
+  for (let BodyPart of snake) {
+    if (gameObjectsColide(BodyPart, foodItem)) {
+      return true
+    }
+  }
+
+  return false
+}
+
+function foodItemColidesWithFood(food: GameObject[], currentFoodItem: GameObject) {
+  for (let foodItem of food) {
+    if (gameObjectsColide(foodItem, currentFoodItem)) {
+      return true
+    }
+  }
+
+  return false
+}
+
+function deleteItemFromFood(food: GameObject[], foodItemIndex: number) {
+  food.splice(foodItemIndex, 1)
+}
+
 
 export function gameObjectsColide(firstGameObject: GameObject, secondGameObject: GameObject) {
   if (firstGameObject.positionX != secondGameObject.positionX) {
@@ -41,7 +96,7 @@ export function keyPressedIsValid(snake: GameObject[], keyPressed: string) {
   return true
 }
 
-export function handleGameCicle(snake: GameObject[], food: Food, direction: string) {
+export function handleGameCicle(snake: GameObject[], food: GameObject[], direction: string) {
   const snakeHead = snake[0]
   handleSnakeEatingFood()
   updateSnakeBody()
@@ -51,8 +106,8 @@ export function handleGameCicle(snake: GameObject[], food: Food, direction: stri
       let foodItem = food[index]
       if (snakeAteFoodItem(foodItem)) {
         growSnake()
-        food.deleteFoodItem(index)
-        food.addNewFoodItem(snake)
+        deleteItemFromFood(food, index)
+        addNewFoodItem(food, snake)
       }
     }
     function snakeAteFoodItem(foodItem: GameObject) {
@@ -90,7 +145,7 @@ export function snakeCollidesWithItsSelf(snake: GameObject[]) {
   return false
 }
 
-export function endGame(snake: GameObject[], food: Food) {
+export function endGame(snake: GameObject[], food: GameObject[]) {
   const snakeHead = snake[0]
   snakeHead.direction = ""
 }

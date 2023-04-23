@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { config } from "@/app/config";
-import Food from "./food";
 import { GameObject } from "./gameObject";
 import {
   handleGameCicle, keyPressedIsValid,
@@ -12,12 +11,12 @@ import GameMapComponent from "./components/GameMap";
 import GameOverScreenComponent from "./components/GameOverScreen";
 
 export default function Page() {
-  const [food, setFood] = useState(new Food(
+  const [food, setFood] = useState([
     new GameObject(
       Math.floor(config.gameMapWidth / 2),
       Math.floor(config.gameMapHeight / 2)
     )
-  ))
+  ])
   const [snake, setSnake] = useState([
     new GameObject(
       Math.floor(config.gameMapWidth / 2),

@@ -2,11 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { config } from "@/app/config";
-import { GameObject } from "./gameObject";
-import {
-  handleGameCicle, keyPressedIsValid,
-  endGame, snakeCollidesWithItsSelf
-} from "./game";
+import { GameObject } from "@/app/gameObject";
+import { handleGameCicle, keyPressedIsValid } from "./game";
 import GameObjectComponent from "./components/GameObject";
 
 export default function Page() {
@@ -23,20 +20,18 @@ export default function Page() {
     )
   ])
   const [gameOverScreenStatus, setGameOverScreenStatus] = useState("hidden")
-  let newDirection = snake[0].direction
+  let snakeDirection = snake[0].direction
 
   useEffect(() => {
     function handleKeyDown(event: any) {
       const keyPressed: string = event.key
       if (keyPressedIsValid(snake, keyPressed)) {
-        newDirection = keyPressed
+        snakeDirection = keyPressed
       }
     }
     const interval = setInterval(() => {
-      snake[0].direction = newDirection
-      handleGameCicle(snake, food, snake[0].direction)
-      if (snakeCollidesWithItsSelf(snake)) {
-        endGame(snake, food)
+      const gameStatus = handleGameCicle(snake, food, snakeDirection)
+      if (gameStatus != "running") {
         setGameOverScreenStatus("flex")
       }
       setSnake(snake => [...snake])

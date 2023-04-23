@@ -1,4 +1,4 @@
-import { GameObject } from "../models";
+import { GameObject } from "../gameObject";
 import { config } from "@/app/config";
 
 export default function GameObjectComponent(gameObject: GameObject, gameObjectColor: string) {

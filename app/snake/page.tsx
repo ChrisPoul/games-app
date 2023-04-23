@@ -7,8 +7,7 @@ import {
   handleGameCicle, keyPressedIsValid,
   endGame, snakeCollidesWithItsSelf
 } from "./game";
-import GameMapComponent from "./components/GameMap";
-import GameOverScreenComponent from "./components/GameOverScreen";
+import GameObjectComponent from "./components/GameObject";
 
 export default function Page() {
   const [food, setFood] = useState([
@@ -52,8 +51,40 @@ export default function Page() {
 
   return (
     <div className="bg-amber-300 h-screen pt-6 z--10">
-      {GameMapComponent(snake, food)}
-      {GameOverScreenComponent(gameOverScreenStatus)}
+      <div
+        className="bg-black m-auto relative rounded"
+        style={{
+          width: config.gameMapWidth * config.gameSizeScale + config.gameSizeUnit,
+          height: config.gameMapHeight * config.gameSizeScale + config.gameSizeUnit
+        }}
+      >
+        <div>
+          {food.map((foodItem, index) => (
+            <div key={"food-" + index}>
+              {GameObjectComponent(foodItem, "bg-red-500")}
+            </div>
+          ))}
+        </div >
+        <div>
+          {snake.map((snakeBodyPart, index) => (
+            <div key={"snake-" + index}>
+              {GameObjectComponent(snakeBodyPart, "bg-green-500")}
+            </div>
+          ))}
+        </div >
+      </div>
+      <div className={`
+      ${gameOverScreenStatus}
+      items-center 
+      w-full h-screen
+      top-0 left-0 fixed 
+      bg-black bg-opacity-70 
+      `}
+      >
+        <div className="h-[50%] w-[50%] bg-white rounded m-auto relative">
+          Game Over
+        </div>
+      </div>
     </div>
   )
 }

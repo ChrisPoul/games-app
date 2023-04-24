@@ -31,7 +31,7 @@ export default function Page() {
     }
     const interval = setInterval(() => {
       const gameStatus = handleGameCicle(snake, food, snakeDirection)
-      if (gameStatus != "running") {
+      if (gameStatus === "game-over") {
         setGameOverScreenStatus("flex")
       }
       setSnake(snake => [...snake])

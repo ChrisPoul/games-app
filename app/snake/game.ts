@@ -38,14 +38,25 @@ export function handleGameCicle(snake: GameObject[], food: GameObject[], directi
     currentBodyPart.positionY = nextBodyPart.positionY
   }
   snakeHead.updatePosition(direction)
-  // handle snake colliding with its self
-  for (let snakeBodyPart of snakeBody) {
-    if (gameObjectsColide(snakeHead, snakeBodyPart)) {
-      snakeHead.direction = ""
-      return "ended"
+  const gameStatus = getGameStatus()
+
+  return gameStatus
+
+  function getGameStatus() {
+    // handle snake colliding with its self
+    let colitions = 0
+    for (let snakeBodyPart of snakeBody) {
+      if (gameObjectsColide(snakeHead, snakeBodyPart)) {
+        snakeHead.direction = ""
+        colitions += 1
+      }
     }
+    if (colitions === snakeBody.length && snakeBody.length > 0) {
+      return "game-over"
+    }
+
+    return "running"
   }
-  return "running"
 
   function handleSnakeEatingFood() {
     for (let index = 0; index < food.length; index++) {

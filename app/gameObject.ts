@@ -41,11 +41,8 @@ export class GameObject {
 }
 
 export function gameObjectsColide(firstGameObject: GameObject, secondGameObject: GameObject) {
-  if (firstGameObject.positionX != secondGameObject.positionX) {
-    return false
-  }
-  else if (firstGameObject.positionY != secondGameObject.positionY) {
-    return false
-  }
+  if (firstGameObject.positionX != secondGameObject.positionX) { return false }
+  if (firstGameObject.positionY != secondGameObject.positionY) { return false }
+
   return true
 }

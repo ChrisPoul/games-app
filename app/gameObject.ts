@@ -21,11 +21,11 @@ export class GameObject {
    */
   collidesWith(gameObjects: GameObject[]) {
     for (const gameObject of gameObjects) {
-      if (this === gameObject) { return false }
-      if (this.positionY != gameObject.positionY) { return false }
-      if (this.positionX != gameObject.positionX) { return false }
+      const yAxisMatches = this.positionY === gameObject.positionY
+      const xAxisMatches = this.positionX === gameObject.positionX
+      if (yAxisMatches && xAxisMatches && this != gameObject) { return true }
     }
-    return true
+    return false
   }
 
   updatePosition(direction: string) {

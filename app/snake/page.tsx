@@ -33,6 +33,7 @@ export default function Page() {
       const gameStatus = handleGameCicle(snake, food, snakeDirection)
       if (gameStatus === "game-over") {
         setGameOverScreenStatus("flex")
+        return
       }
       setSnake(snake => [...snake])
     }, config.milisecondsPerFrame)

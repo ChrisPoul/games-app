@@ -14,31 +14,25 @@ export function keyPressedIsValid(snake: GameObject[], keyPressed: string) {
   return true
 }
 
-export function handleGameCicle(snake: GameObject[], food: GameObject[], direction: string) {
-  handleSnakeEatingFood(snake, food)
-  updateSnakePosition(snake)
-  const gameStatus = getGameStatus(snake)
-
-  return gameStatus
+export function doInterval(gameStatus: string, snake: GameObject[], food: GameObject[]) {
+  if (gameStatus === "game-running") {
+    handleSnakeEatingFood(snake, food)
+    updateSnakePosition(snake)
+  }
+  else if (gameStatus == "game-ending") {
+    snake[0].direction = ""
+    updateSnakePosition(snake)
+  }
 
   function handleSnakeEatingFood(snake: GameObject[], food: GameObject[]) {
+    const snakeHead = snake[0]
     for (let index = 0; index < food.length; index++) {
       let foodItem = food[index]
-      if (snakeAteFoodItem(foodItem)) {
+      if (snakeHead.collidesWith([foodItem])) {
         snake.push(new GameObject(0, 0))
         addNewFoodItem(foodItem)
+        return
       }
-    }
-
-    function snakeAteFoodItem(foodItem: GameObject) {
-      const snakeHead = snake[0]
-      if (snakeHead.positionX != foodItem.positionX) {
-        return false
-      }
-      else if (snakeHead.positionY != foodItem.positionY) {
-        return false
-      }
-      return true
     }
     function addNewFoodItem(foodItem: GameObject) {
       foodItem.positionX = getRandomInt(config.gameMapWidth)
@@ -48,10 +42,8 @@ export function handleGameCicle(snake: GameObject[], food: GameObject[], directi
       else return
     }
   }
-
   function updateSnakePosition(snake: GameObject[]) {
     const snakeHead = snake[0]
-    snakeHead.direction = direction
     const snakeBody = snake.slice(1)
     for (let index = snakeBody.length; index > 0; index--) {
       let currentBodyPart = snake[index]
@@ -59,24 +51,27 @@ export function handleGameCicle(snake: GameObject[], food: GameObject[], directi
       currentBodyPart.positionX = nextBodyPart.positionX
       currentBodyPart.positionY = nextBodyPart.positionY
     }
-    snakeHead.updatePosition(direction)
-  }
-
-  function getGameStatus(snake: GameObject[]) {
-    // handle snake colliding with its self
-    const snakeHead = snake[0]
-    const snakeBody = snake.slice(1)
-    let colitions = 0
-    for (let snakeBodyPart of snakeBody) {
-      if (snakeHead.collidesWith([snakeBodyPart])) {
-        snakeHead.direction = ""
-        colitions += 1
-      }
-    }
-    if (colitions === snakeBody.length && snakeBody.length > 0) {
-      return "game-over"
-    }
-
-    return "running"
+    snakeHead.updatePosition(snakeHead.direction)
   }
 }
+
+export function getGameStatus(snake: GameObject[]) {
+  const snakeHead = snake[0]
+  const snakeBody = snake.slice(1)
+  let collitions = 0
+  for (let snakeBodyPart of snakeBody) {
+    if (snakeHead.collidesWith([snakeBodyPart])) {
+      collitions += 1
+    }
+  }
+  if (collitions > 0 && collitions < snakeBody.length) {
+    config.milisecondsPerFrame = 200
+    return "game-ending"
+  }
+  if (collitions > 1 && collitions === snakeBody.length) {
+    return "game-over"
+  }
+
+  return "game-running"
+}
+

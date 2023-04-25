@@ -3,7 +3,9 @@
 import { useState, useEffect } from "react"
 import { config } from "@/app/config";
 import { GameObject } from "@/app/gameObject";
-import { handleGameCicle, keyPressedIsValid } from "./game";
+import {
+  keyPressedIsValid, getGameStatus, doInterval
+} from "./game";
 import GameObjectComponent from "./components/GameObject";
 
 export default function Page() {
@@ -20,21 +22,15 @@ export default function Page() {
     )
   ])
   const [gameOverScreenStatus, setGameOverScreenStatus] = useState("hidden")
-  let snakeDirection = snake[0].direction
 
   useEffect(() => {
-    function handleKeyDown(event: any) {
-      const keyPressed: string = event.key
-      if (keyPressedIsValid(snake, keyPressed)) {
-        snakeDirection = keyPressed
-      }
+    let gameStatus = getGameStatus(snake)
+    if (gameStatus === "game-over") {
+      setGameOverScreenStatus("flex")
+      return
     }
     const interval = setInterval(() => {
-      const gameStatus = handleGameCicle(snake, food, snakeDirection)
-      if (gameStatus === "game-over") {
-        setGameOverScreenStatus("flex")
-        return
-      }
+      doInterval(gameStatus, snake, food)
       setSnake(snake => [...snake])
     }, config.milisecondsPerFrame)
     document.addEventListener('keydown', handleKeyDown);
@@ -44,6 +40,13 @@ export default function Page() {
       clearInterval(interval)
     }
   }, [snake])
+
+  function handleKeyDown(event: any) {
+    const keyPressed: string = event.key
+    if (keyPressedIsValid(snake, keyPressed)) {
+      snake[0].direction = keyPressed
+    }
+  }
 
   return (
     <div className="bg-amber-300 h-screen pt-6 z--10">

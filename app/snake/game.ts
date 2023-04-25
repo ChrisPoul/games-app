@@ -1,4 +1,4 @@
-import { GameObject, gameObjectsColide } from "@/app/gameObject";
+import { GameObject } from "@/app/gameObject";
 import { getRandomInt } from "../common";
 import { config } from "../config";
 
@@ -46,7 +46,7 @@ export function handleGameCicle(snake: GameObject[], food: GameObject[], directi
     // handle snake colliding with its self
     let colitions = 0
     for (let snakeBodyPart of snakeBody) {
-      if (gameObjectsColide(snakeHead, snakeBodyPart)) {
+      if (snakeHead.collidesWith([snakeBodyPart])) {
         snakeHead.direction = ""
         colitions += 1
       }
@@ -63,7 +63,6 @@ export function handleGameCicle(snake: GameObject[], food: GameObject[], directi
       let foodItem = food[index]
       if (snakeAteFoodItem(foodItem)) {
         snake.push(new GameObject(0, 0))
-        food.splice(index, 1)
         addNewFoodItem(foodItem)
       }
     }
@@ -81,28 +80,10 @@ export function handleGameCicle(snake: GameObject[], food: GameObject[], directi
     function addNewFoodItem(foodItem: GameObject) {
       foodItem.positionX = getRandomInt(config.gameMapWidth)
       foodItem.positionY = getRandomInt(config.gameMapHeight)
-      if (foodItemColides(foodItem)) {
-        addNewFoodItem(foodItem)
-      }
-      else {
-        food.push(foodItem)
-      }
+      if (foodItem.collidesWith(snake)) { addNewFoodItem(foodItem) }
+      else if (foodItem.collidesWith(food)) { addNewFoodItem(foodItem) }
 
-      function foodItemColides(foodItem: GameObject) {
-        // check for food item colliding with snake
-        for (let BodyPart of snake) {
-          if (gameObjectsColide(BodyPart, foodItem)) {
-            return true
-          }
-        }
-        // check for food item colliding with food
-        for (let currentFoodItem of food) {
-          if (gameObjectsColide(foodItem, currentFoodItem)) {
-            return true
-          }
-        }
-        return false
-      }
+      return
     }
   }
 }

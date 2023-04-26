@@ -26,7 +26,9 @@ export default function Page() {
   useEffect(() => {
     let gameStatus = getGameStatus(snake)
     if (gameStatus === "game-over") {
-      setGameOverScreenStatus("flex")
+      setTimeout(() => {
+        setGameOverScreenStatus("flex")
+      }, 2000)
       return
     }
     const interval = setInterval(() => {

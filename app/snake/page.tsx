@@ -4,35 +4,58 @@ import { useState, useEffect } from "react"
 import { config } from "@/app/config";
 import { GameObject } from "@/app/gameObject";
 import {
-  keyPressedIsValid, getGameStatus, doInterval
+  snakeDirectionIsValid, getGameStatus, doInterval
 } from "./game";
 import GameObjectComponent from "./components/GameObject";
+import GameOverScreenComponent from "./components/GameOverScreen";
+
+let snakeDirection = "Down"
+let newSnakeDirection: string
 
 export default function Page() {
   const [food, setFood] = useState([
     new GameObject(
       Math.floor(config.gameMapWidth / 2),
       Math.floor(config.gameMapHeight / 2)
+    ),
+    new GameObject(
+      Math.floor(config.gameMapWidth / 2),
+      Math.floor(config.gameMapHeight / 2)
+    ),
+    new GameObject(
+      Math.floor(config.gameMapWidth / 2),
+      Math.floor(config.gameMapHeight / 2)
+    ),
+    new GameObject(
+      Math.floor(config.gameMapWidth / 2),
+      Math.floor(config.gameMapHeight / 2)
     )
   ])
   const [snake, setSnake] = useState([
-    new GameObject(
-      Math.floor(config.gameMapWidth / 2),
-      0
-    )
+    new GameObject(Math.floor(config.gameMapWidth / 2), 0),
+    new GameObject(Math.floor(config.gameMapWidth / 0), 0),
+    new GameObject(Math.floor(config.gameMapWidth / 0), 0),
+    new GameObject(Math.floor(config.gameMapWidth / 0), 0),
+    new GameObject(Math.floor(config.gameMapWidth / 0), 0),
+    new GameObject(Math.floor(config.gameMapWidth / 0), 0),
+    new GameObject(Math.floor(config.gameMapWidth / 0), 0),
   ])
-  const [gameOverScreenStatus, setGameOverScreenStatus] = useState("hidden")
+  const [gameOverScreenStatus, setGameOverScreenStatus] = useState("running")
 
   useEffect(() => {
     let gameStatus = getGameStatus(snake)
-    if (gameStatus === "game-over") {
-      setTimeout(() => {
-        setGameOverScreenStatus("flex")
-      }, 2000)
-      return
+    switch (gameStatus) {
+      case "ending":
+        config.milisecondsPerFrame = 100
+      case "game-over":
+        setTimeout(() => {
+          setGameOverScreenStatus("game-over")
+        }, 2000)
+        console.log("game-over")
+        return
     }
     const interval = setInterval(() => {
-      doInterval(gameStatus, snake, food)
+      doInterval(gameStatus, snakeDirection, snake, food)
       setSnake(snake => [...snake])
     }, config.milisecondsPerFrame)
     document.addEventListener('keydown', handleKeyDown);
@@ -45,11 +68,13 @@ export default function Page() {
 
   function handleKeyDown(event: any) {
     const keyPressed: string = event.key
-    if (keyPressedIsValid(snake, keyPressed)) {
-      snake[0].direction = keyPressed
+    if (keyPressed.includes("Arrow")) {
+      newSnakeDirection = keyPressed.replace("Arrow", "")
+      if (snakeDirectionIsValid(snakeDirection, newSnakeDirection) || snake.length == 1) {
+        snakeDirection = newSnakeDirection
+      }
     }
   }
-
   return (
     <div className="bg-amber-300 h-screen pt-6 z--10">
       <div
@@ -74,18 +99,7 @@ export default function Page() {
           ))}
         </div >
       </div>
-      <div className={`
-      ${gameOverScreenStatus}
-      items-center 
-      w-full h-screen
-      top-0 left-0 fixed 
-      bg-black bg-opacity-70 
-      `}
-      >
-        <div className="h-[50%] w-[50%] bg-white rounded m-auto relative">
-          Game Over
-        </div>
-      </div>
+      {GameOverScreenComponent(gameOverScreenStatus)}
     </div>
   )
 }

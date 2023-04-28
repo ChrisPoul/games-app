@@ -35,7 +35,6 @@ export default function Page() {
         setTimeout(() => {
           setGameOverScreenStatus("game-over")
         }, 1000)
-        console.log("game-over")
         return
     }
     const interval = setInterval(() => {

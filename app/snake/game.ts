@@ -35,7 +35,6 @@ export function doInterval(
       if (snakeHead.collidesWith([foodItem])) {
         snake.push(new GameObject(0, 0))
         addNewFoodItem(snake, foodItem)
-        console.log("ate")
         return
       }
     }

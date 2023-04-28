@@ -15,30 +15,14 @@ let newSnakeDirection: string
 export default function Page() {
   const [food, setFood] = useState([
     new GameObject(
-      Math.floor(config.gameMapWidth / 2),
-      Math.floor(config.gameMapHeight / 2)
+      Math.floor(config.gameMapWidth / 2), 4
     ),
     new GameObject(
-      Math.floor(config.gameMapWidth / 2),
-      Math.floor(config.gameMapHeight / 2)
-    ),
-    new GameObject(
-      Math.floor(config.gameMapWidth / 2),
-      Math.floor(config.gameMapHeight / 2)
-    ),
-    new GameObject(
-      Math.floor(config.gameMapWidth / 2),
-      Math.floor(config.gameMapHeight / 2)
+      Math.floor(config.gameMapWidth / 2), 1
     )
   ])
   const [snake, setSnake] = useState([
-    new GameObject(Math.floor(config.gameMapWidth / 2), 0),
-    new GameObject(Math.floor(config.gameMapWidth / 0), 0),
-    new GameObject(Math.floor(config.gameMapWidth / 0), 0),
-    new GameObject(Math.floor(config.gameMapWidth / 0), 0),
-    new GameObject(Math.floor(config.gameMapWidth / 0), 0),
-    new GameObject(Math.floor(config.gameMapWidth / 0), 0),
-    new GameObject(Math.floor(config.gameMapWidth / 0), 0),
+    new GameObject(Math.floor(config.gameMapWidth / 2), 0)
   ])
   const [gameOverScreenStatus, setGameOverScreenStatus] = useState("running")
 
@@ -50,7 +34,7 @@ export default function Page() {
       case "game-over":
         setTimeout(() => {
           setGameOverScreenStatus("game-over")
-        }, 2000)
+        }, 1000)
         console.log("game-over")
         return
     }

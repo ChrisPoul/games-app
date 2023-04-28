@@ -17,16 +17,15 @@ export function doInterval(
   snake: GameObject[],
   food: GameObject[]
 ) {
-  const snakeHead = snake[0]
-  const snakeBody = snake.slice(1)
   switch (gameStatus) {
     case "game-running":
       handleSnakeEatingFood(snake, food)
-      updateSnakeBodyPosition(snakeBody)
+      updateSnakePosition(snake)
+      const snakeHead = snake[0]
       snakeHead.updatePosition(snakeDirection)
       break
     case "game-ending":
-      updateSnakeBodyPosition(snakeBody)
+      updateSnakePosition(snake)
       break
   }
 
@@ -36,6 +35,7 @@ export function doInterval(
       if (snakeHead.collidesWith([foodItem])) {
         snake.push(new GameObject(0, 0))
         addNewFoodItem(snake, foodItem)
+        console.log("ate")
         return
       }
     }
@@ -47,7 +47,8 @@ export function doInterval(
       else return
     }
   }
-  function updateSnakeBodyPosition(snakeBody: GameObject[]) {
+  function updateSnakePosition(snake: GameObject[]) {
+    const snakeBody = snake.slice(1)
     for (let index = snakeBody.length; index > 0; index--) {
       let currentBodyPart = snake[index]
       let nextBodyPart = snake[index - 1]

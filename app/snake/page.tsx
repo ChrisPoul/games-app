@@ -9,8 +9,8 @@ import {
 import GameObjectComponent from "./components/GameObject";
 import GameOverScreenComponent from "./components/GameOverScreen";
 
-let snakeDirection = "Down"
-let newSnakeDirection: string
+let snakeDirection: string
+let newSnakeDirection = "Down"
 
 export default function Page() {
   const [food, setFood] = useState([
@@ -38,6 +38,9 @@ export default function Page() {
         return
     }
     const interval = setInterval(() => {
+      if (snakeDirectionIsValid(snakeDirection, newSnakeDirection) || snake.length == 1) {
+        snakeDirection = newSnakeDirection
+      }
       doInterval(gameStatus, snakeDirection, snake, food)
       setSnake(snake => [...snake])
     }, config.milisecondsPerFrame)
@@ -53,9 +56,6 @@ export default function Page() {
     const keyPressed: string = event.key
     if (keyPressed.includes("Arrow")) {
       newSnakeDirection = keyPressed.replace("Arrow", "")
-      if (snakeDirectionIsValid(snakeDirection, newSnakeDirection) || snake.length == 1) {
-        snakeDirection = newSnakeDirection
-      }
     }
   }
   return (
@@ -82,7 +82,7 @@ export default function Page() {
           ))}
         </div >
       </div>
-      {GameOverScreenComponent(gameOverScreenStatus)}
+      {GameOverScreenComponent(gameOverScreenStatus, snake.length)}
     </div>
   )
 }

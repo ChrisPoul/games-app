@@ -5,6 +5,7 @@ interface Config {
   gameMapHeight: number
   snakeMovementSpead: string
   milisecondsPerFrame: number
+  speedIncrease: number
 }
 
 export const config: Config = require('./config.json')

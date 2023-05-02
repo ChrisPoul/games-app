@@ -8,6 +8,7 @@ import {
 } from "./game";
 import GameObjectComponent from "./components/GameObject";
 import GameOverScreenComponent from "./components/GameOverScreen";
+import GameMenuComponent from "./components/GameMenu";
 
 let snakeDirection: string
 let newSnakeDirection = "Down"
@@ -24,7 +25,7 @@ export default function Page() {
   const [snake, setSnake] = useState([
     new GameObject(Math.floor(config.gameMapWidth / 2), 0)
   ])
-  const [gameOverScreenStatus, setGameOverScreenStatus] = useState("running")
+  const [menuOn, setmenuOn] = useState(false)
 
   useEffect(() => {
     let gameStatus = getGameStatus(snake)
@@ -33,7 +34,7 @@ export default function Page() {
         config.milisecondsPerFrame = 100
       case "game-over":
         setTimeout(() => {
-          setGameOverScreenStatus("game-over")
+          setmenuOn(true)
         }, 1000)
         return
     }
@@ -82,7 +83,7 @@ export default function Page() {
           ))}
         </div >
       </div>
-      {GameOverScreenComponent(gameOverScreenStatus, snake.length)}
+      {GameMenuComponent(menuOn, snake.length)}
     </div>
   )
 }

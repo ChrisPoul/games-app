@@ -3,5 +3,6 @@
   "gameSizeUnit": "em",
   "gameMapWidth": 24,
   "gameMapHeight": 15,
-  "milisecondsPerFrame": 130
+  "milisecondsPerFrame": 130,
+  "speedIncrease": 2
 }

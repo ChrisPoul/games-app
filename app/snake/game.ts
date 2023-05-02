@@ -35,7 +35,7 @@ export function doInterval(
       if (snakeHead.collidesWith([foodItem])) {
         snake.push(new GameObject(0, 0))
         addNewFoodItem(snake, foodItem)
-        config.milisecondsPerFrame -= 1
+        config.milisecondsPerFrame -= config.speedIncrease
         return
       }
     }

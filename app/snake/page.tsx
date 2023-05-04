@@ -34,7 +34,7 @@ export default function Page() {
       case "game-over":
         return
     }
-    const interval = setInterval(() => {
+    setTimeout(() => {
       if (snakeDirectionIsValid(snakeDirection, newSnakeDirection) || snake.length == 1) {
         snakeDirection = newSnakeDirection
       }
@@ -45,7 +45,6 @@ export default function Page() {
 
     return function cleanup() {
       document.removeEventListener('keydown', handleKeyDown);
-      clearInterval(interval)
     }
   }, [snake])
 

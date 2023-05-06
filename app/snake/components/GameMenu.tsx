@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
-import GameOverMenuComponent from "./GameOverMenu"
 import SettingsMenuComponent from "./SettingsMenu"
 
-export default function GameMenuComponent(gameScore: number) {
+export default function GameMenuComponent() {
   const [currentMenu, setCurrentMenu] = useState("none")
   let display = "flex"
   if (currentMenu === "none") { display = "hidden" }
@@ -33,7 +32,6 @@ export default function GameMenuComponent(gameScore: number) {
       `}
       >
         <div className="h-[50%] w-[50%] bg-white rounded m-auto p-16 relative text-center">
-          {currentMenu === "game-over" && GameOverMenuComponent(gameScore)}
           {currentMenu === "settings" && SettingsMenuComponent()}
           <button
             className="bg-red-600 p-4 rounded block m-auto w-28"

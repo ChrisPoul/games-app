@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react"
 import { config } from "@/app/config";
 import { GameObject } from "@/app/gameObject";
 import {
-  snakeDirectionIsValid, getGameStatus, handleSnakeEatingFood, updateSnakePosition
+  playerDirectionIsValid, updatePlayer, playerLosses
 } from "./game";
 import GameMenuComponent from "./components/GameMenu";
 import GameMapComponent from "./components/GameMap";
@@ -38,26 +38,17 @@ export default function Page() {
 
   // run game logic
   useEffect(() => {
-    const gameStatus = getGameStatus(snake)
     setTimeout(() => {
-      if (snakeDirectionIsValid(snakeDirection.current, newSnakeDirection.current)) {
+      if (playerDirectionIsValid(snakeDirection.current, newSnakeDirection.current)) {
         snakeDirection.current = newSnakeDirection.current
       }
-      switch (gameStatus) {
-        case "game-running":
-          handleSnakeEatingFood(snake, food)
-          updateSnakePosition(snake)
-          const snakeHead = snake[0]
-          snakeHead.updatePosition(snakeDirection.current)
-          break
-        case "game-ending":
-          updateSnakePosition(snake)
-          config.milisecondsPerFrame = 100
-          break
-        case "game-over":
+      if (playerLosses(snake)) {
+        setTimeout(() => {
           setGameIsOver(true)
-          return
+        }, 1000)
+        return
       }
+      updatePlayer(snake, food, snakeDirection.current)
       setSnake(snake => [...snake])
     }, config.milisecondsPerFrame)
   }, [snake])

@@ -1,5 +1,5 @@
-import { GameObject } from "@/app/gameObject";
-import { config } from "@/app/config";
+import { GameObject } from "../gameObject";
+import { config } from "../config";
 
 export default function GameObjectComponent(gameObject: GameObject, gameObjectColor: string) {
   return (

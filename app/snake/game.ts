@@ -1,6 +1,6 @@
-import { GameObject } from "@/app/gameObject";
+import { GameObject } from "./gameObject";
 import { getRandomInt } from "../common";
-import { config } from "../config";
+import { config } from "./config";
 
 export function playerDirectionIsValid(oldDirection: string, newDirection: string) {
   if (newDirection == "Left" && oldDirection == "Right") return false

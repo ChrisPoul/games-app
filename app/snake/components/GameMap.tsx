@@ -1,5 +1,5 @@
-import { GameObject } from "@/app/gameObject";
-import { config } from "@/app/config";
+import { GameObject } from "../gameObject";
+import { config } from "../config";
 import GameObjectComponent from "./GameObject";
 
 export default function GameMapComponent(snake: GameObject[], food: GameObject[]) {

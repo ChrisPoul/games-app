@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from "react"
-import { config } from "@/app/config";
-import { GameObject } from "@/app/gameObject";
+import { config } from "./config";
+import { GameObject } from "./gameObject";
 import {
   playerDirectionIsValid, updatePlayer, playerLosses
 } from "./game";

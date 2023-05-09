@@ -1,6 +1,8 @@
 import { config } from "../config";
+import { GameObject } from "../gameObject";
+import GameObjectComponent from "./GameObject";
 
-export default function GameMapComponent() {
+export default function GameMapComponent(figure: GameObject[]) {
   return (
     <div
       className="bg-black m-auto relative rounded"
@@ -9,13 +11,13 @@ export default function GameMapComponent() {
         height: config.gameMapHeight * config.gameSizeScale + config.gameSizeUnit
       }}
     >
-      {/* <div>
-        {food.map((foodItem, index) => (
-          <div key={"food-" + index}>
-            pene
+      <div>
+        {figure.map((figurePart, index) => (
+          <div key={index}>
+            {GameObjectComponent(figurePart, "bg-yellow-500")}
           </div>
         ))}
-      </div > */}
+      </div >
     </div>
   )
 }

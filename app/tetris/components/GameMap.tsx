@@ -1,8 +1,9 @@
 import { config } from "../config";
 import { GameObject } from "../gameObject";
+import FigureComponent from "./Figure";
 import GameObjectComponent from "./GameObject";
 
-export default function GameMapComponent(figure: GameObject[]) {
+export default function GameMapComponent(currentFigure: GameObject[], placedFigures: GameObject[][]) {
   return (
     <div
       className="bg-black m-auto relative rounded"
@@ -11,13 +12,14 @@ export default function GameMapComponent(figure: GameObject[]) {
         height: config.gameMapHeight * config.gameSizeScale + config.gameSizeUnit
       }}
     >
+      {FigureComponent(currentFigure)}
       <div>
-        {figure.map((figurePart, index) => (
+        {placedFigures.map((figure, index) => (
           <div key={index}>
-            {GameObjectComponent(figurePart, "bg-yellow-500")}
+            {FigureComponent(figure)}
           </div>
         ))}
-      </div >
+      </div>
     </div>
   )
 }

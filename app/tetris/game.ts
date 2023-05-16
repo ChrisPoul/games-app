@@ -4,6 +4,7 @@ import { GameObject } from "./gameObject";
 export function updateFigurePosition(figure: GameObject[], direction: string) {
   let collition_left_wall = false
   let collition_right_wall = false
+  let collition_floor = false
   for (let figurePart of figure) {
     switch (direction) {
       case "Right":
@@ -16,7 +17,9 @@ export function updateFigurePosition(figure: GameObject[], direction: string) {
         break
       case "Down":
         figurePart.moveDown()
-        if (figurePart.Y == config.gameMapHeight) { figurePart.moveUp() }
+        break
+      case "Up":
+        figurePart.moveUp()
         break
     }
   }
@@ -25,23 +28,68 @@ export function updateFigurePosition(figure: GameObject[], direction: string) {
       figurePart.moveRight()
     }
   }
-  else if (collition_right_wall == true) {
+  if (collition_right_wall == true) {
     for (let figurePart of figure) {
       figurePart.moveLeft()
     }
   }
 }
 
-export function rotateFigure(figure: GameObject[]) {
+export function rotateFigure(placedFigures: GameObject[][], figure: GameObject[], direction: "right" | "left") {
   const centerFigurePart = figure[Math.floor(figure.length / 2)]
   const posX = centerFigurePart.X
   const posY = centerFigurePart.Y
-  for (let figurePart of figure) {
-    figurePart.X -= posX
-    figurePart.Y -= posY
-    const newX = figurePart.Y * -1
-    const newY = figurePart.X
-    figurePart.X = newX + posX
-    figurePart.Y = newY + posY
+  if (direction == "right") {
+    rotateFigureRight()
+    if (figureColidesWithWall(figure) || figureCollidesWithPlacedFigure(figure, placedFigures)) { rotateFigureLeft() }
   }
+  else if (direction == "left") {
+    rotateFigureLeft()
+    if (figureColidesWithWall(figure) || figureCollidesWithPlacedFigure(figure, placedFigures)) { rotateFigureRight() }
+  }
+
+  function figureColidesWithWall(figure: GameObject[]) {
+    for (let figurePart of figure) {
+      if (figurePart.X == config.gameMapWidth) { return true }
+      else if (figurePart.X < 0) { return true }
+      else if (figurePart.Y == config.gameMapHeight) { return true }
+    }
+    return false
+  }
+  function rotateFigureRight() {
+    for (let figurePart of figure) {
+      figurePart.X -= posX
+      figurePart.Y -= posY
+      const newX = figurePart.Y * -1
+      const newY = figurePart.X
+      figurePart.X = newX + posX
+      figurePart.Y = newY + posY
+    }
+  }
+  function rotateFigureLeft() {
+    for (let figurePart of figure) {
+      figurePart.X -= posX
+      figurePart.Y -= posY
+      const newX = figurePart.Y
+      const newY = figurePart.X * -1
+      figurePart.X = newX + posX
+      figurePart.Y = newY + posY
+    }
+  }
+}
+
+function figureCollidesWithPlacedFigure(figure: GameObject[], placedFigures: GameObject[][]) {
+  for (const placedFigure of placedFigures) {
+    for (let figurePart of figure) {
+      if (figurePart.collidesWith(placedFigure)) { return true }
+    }
+  }
+  return false
+}
+
+export function figureReachesFloor(figure: GameObject[]) {
+  for (let figurePart of figure) {
+    if (figurePart.Y == config.gameMapHeight) { return true }
+  }
+  return false
 }

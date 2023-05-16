@@ -2,12 +2,11 @@
 import { useState, useEffect, useRef } from "react"
 import { config } from "./config";
 import GameMapComponent from "./components/GameMap";
-import { createIFigure } from "./figures";
-import { updateFigurePosition } from "./game";
+import { getFigure } from "./figures";
+import { rotateFigure, updateFigurePosition } from "./game";
 
 export default function Page() {
-  const [gameIsOver, setGameIsOver] = useState(false)
-  const [figure, setFigure] = useState(createIFigure())
+  const [figure, setFigure] = useState(getFigure("Z"))
 
   // handle user input
   useEffect(() => {
@@ -16,8 +15,11 @@ export default function Page() {
       if (keyPressed.includes("Arrow")) {
         const direction = keyPressed.replace("Arrow", "")
         updateFigurePosition(figure, direction)
-        setFigure(figure => [...figure])
       }
+      if (keyPressed == "r") {
+        rotateFigure(figure)
+      }
+      setFigure(figure => [...figure])
     }
     document.addEventListener('keydown', handleKeyDown);
 

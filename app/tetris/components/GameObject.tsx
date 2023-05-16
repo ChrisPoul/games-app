@@ -6,8 +6,8 @@ export default function GameObjectComponent(gameObject: GameObject, gameObjectCo
     <button
       className={"rounded absolute " + gameObjectColor}
       style={{
-        left: gameObject.positionX * config.gameSizeScale + config.gameSizeUnit,
-        top: gameObject.positionY * config.gameSizeScale + config.gameSizeUnit,
+        left: gameObject.X * config.gameSizeScale + config.gameSizeUnit,
+        top: gameObject.Y * config.gameSizeScale + config.gameSizeUnit,
         padding: config.gameSizeScale / 2 + config.gameSizeUnit
       }}
     ></button>

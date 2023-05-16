@@ -3,11 +3,11 @@ import { config } from "./config"
 const distance = 1
 
 export class GameObject {
-  positionX: number
-  positionY: number
-  constructor(positionX: number, positionY: number) {
-    this.positionX = positionX
-    this.positionY = positionY
+  X: number
+  Y: number
+  constructor(X: number, Y: number) {
+    this.X = X
+    this.Y = Y
   }
   /**
    * @param gameObjects Should be a list of instances of {@link GameObject}.
@@ -16,8 +16,8 @@ export class GameObject {
    */
   collidesWith(gameObjects: GameObject[]) {
     for (const gameObject of gameObjects) {
-      const yAxisMatches = this.positionY === gameObject.positionY
-      const xAxisMatches = this.positionX === gameObject.positionX
+      const yAxisMatches = this.Y === gameObject.Y
+      const xAxisMatches = this.X === gameObject.X
       if (yAxisMatches && xAxisMatches && this != gameObject) { return true }
     }
     return false
@@ -26,29 +26,29 @@ export class GameObject {
   updatePosition(direction: string) {
     switch (direction) {
       case "Right":
-        this.positionX = this.positionX + distance
+        this.X = this.X + distance
         break
       case "Left":
-        this.positionX = this.positionX - distance
+        this.X = this.X - distance
         break
       case "Up":
-        this.positionY = this.positionY - distance
+        this.Y = this.Y - distance
         break
       case "Down":
-        this.positionY = this.positionY + distance
+        this.Y = this.Y + distance
         break
     }
-    if (this.positionX >= config.gameMapWidth) {
-      this.positionX = 0
+    if (this.X >= config.gameMapWidth) {
+      this.X = 0
     }
-    else if (this.positionX < 0) {
-      this.positionX = config.gameMapWidth - 1
+    else if (this.X < 0) {
+      this.X = config.gameMapWidth - 1
     }
-    if (this.positionY < 0) {
-      this.positionY = config.gameMapHeight - 1
+    if (this.Y < 0) {
+      this.Y = config.gameMapHeight - 1
     }
-    if (this.positionY >= config.gameMapHeight) {
-      this.positionY = 0
+    if (this.Y >= config.gameMapHeight) {
+      this.Y = 0
     }
   }
 }

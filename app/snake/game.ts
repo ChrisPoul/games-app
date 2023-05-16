@@ -28,8 +28,8 @@ export function updatePlayer(player: GameObject[], food: GameObject[], playerDir
       }
     }
     function addNewFoodItem(snake: GameObject[], foodItem: GameObject) {
-      foodItem.positionX = getRandomInt(config.gameMapWidth)
-      foodItem.positionY = getRandomInt(config.gameMapHeight)
+      foodItem.X = getRandomInt(config.gameMapWidth)
+      foodItem.Y = getRandomInt(config.gameMapHeight)
       if (foodItem.collidesWith(snake)) { addNewFoodItem(snake, foodItem) }
       else if (foodItem.collidesWith(food)) { addNewFoodItem(snake, foodItem) }
       else return
@@ -41,8 +41,8 @@ export function updatePlayer(player: GameObject[], food: GameObject[], playerDir
     for (let index = snakeBody.length; index > 0; index--) {
       let currentBodyPart = snake[index]
       let nextBodyPart = snake[index - 1]
-      currentBodyPart.positionX = nextBodyPart.positionX
-      currentBodyPart.positionY = nextBodyPart.positionY
+      currentBodyPart.X = nextBodyPart.X
+      currentBodyPart.Y = nextBodyPart.Y
     }
   }
 }

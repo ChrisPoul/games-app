@@ -5,12 +5,11 @@ const DEFAULT_DISTANCE = 1
 export class GameObject {
   X: number
   Y: number
-  position: Array<number>
   constructor(X: number, Y: number) {
     this.X = X
     this.Y = Y
-    this.position = [X, Y]
   }
+  getCoordenates() { return [this.X, this.Y] }
   /**
    * @param gameObjects Should be a list of instances of {@link GameObject}.
    * We assert if the object colides with any of the objects contained
@@ -18,7 +17,9 @@ export class GameObject {
    */
   collidesWith(gameObjects: GameObject[]) {
     for (const gameObject of gameObjects) {
-      if (this.position == gameObject.position) { return true }
+      const yAxisMatches = this.Y === gameObject.Y
+      const xAxisMatches = this.X === gameObject.X
+      if (yAxisMatches && xAxisMatches && this != gameObject) { return true }
     }
     return false
   }

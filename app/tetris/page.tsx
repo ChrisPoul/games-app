@@ -17,7 +17,7 @@ export default function Page() {
       if (keyPressed.includes("Arrow") && !keyPressed.includes("Up")) {
         const direction = keyPressed.replace("Arrow", "")
         updateFigurePosition(figure, direction)
-        if (figureReachesFloor(figure)) {
+        if (figureReachesFloor(figure, placedFigures)) {
           updateFigurePosition(figure, "Up")
           setPlacedFigures(placedFigures => [...placedFigures, figure])
           setFigure(getFigure("I"))
@@ -38,7 +38,7 @@ export default function Page() {
   useEffect(() => {
     const interval = setInterval(() => {
       updateFigurePosition(figure, "Down")
-      if (figureReachesFloor(figure)) {
+      if (figureReachesFloor(figure, placedFigures)) {
         updateFigurePosition(figure, "Up")
         setPlacedFigures(placedFigures => [...placedFigures, figure])
         setFigure(getFigure("I"))

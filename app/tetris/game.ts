@@ -87,9 +87,12 @@ function figureCollidesWithPlacedFigure(figure: GameObject[], placedFigures: Gam
   return false
 }
 
-export function figureReachesFloor(figure: GameObject[]) {
-  for (let figurePart of figure) {
+export function figureReachesFloor(currentFigure: GameObject[], placedFigures: GameObject[][]) {
+  for (const figurePart of currentFigure) {
     if (figurePart.Y == config.gameMapHeight) { return true }
+    for (const figure of placedFigures) {
+      if (figurePart.collidesWith(figure)) { return true }
+    }
   }
   return false
 }

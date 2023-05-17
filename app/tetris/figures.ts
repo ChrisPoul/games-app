@@ -4,7 +4,9 @@ import { GameObject } from "./gameObject"
 const initialX = Math.floor(config.gameMapWidth / 2)
 const initialY = 0
 
-export function getFigure(figureName: "I" | "L" | "T" | "O" | "S" | "Z") {
+export type FigureName = "I" | "L" | "T" | "O" | "S" | "Z"
+
+export function getFigure(figureName: FigureName) {
   switch (figureName) {
     case "I": return getIFigure()
     case "L": return getLFigure()

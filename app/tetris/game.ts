@@ -1,10 +1,19 @@
+import { getRandomInt } from "../common";
 import { config } from "./config";
+import { FigureName, getFigure } from "./figures";
 import { GameObject } from "./gameObject";
+
+export function generateRandomFigure() {
+  const figureNames: FigureName[] = ["I", "L", "T", "O", "S", "Z"]
+  const randomIndex = getRandomInt(figureNames.length - 1)
+  const randomFigureName = figureNames[randomIndex]
+
+  return getFigure(randomFigureName)
+}
 
 export function updateFigurePosition(figure: GameObject[], direction: string) {
   let collition_left_wall = false
   let collition_right_wall = false
-  let collition_floor = false
   for (let figurePart of figure) {
     switch (direction) {
       case "Right":
@@ -76,22 +85,22 @@ export function rotateFigure(placedFigures: GameObject[][], figure: GameObject[]
       figurePart.Y = newY + posY
     }
   }
-}
-
-function figureCollidesWithPlacedFigure(figure: GameObject[], placedFigures: GameObject[][]) {
-  for (const placedFigure of placedFigures) {
-    for (let figurePart of figure) {
-      if (figurePart.collidesWith(placedFigure)) { return true }
+  function figureCollidesWithPlacedFigure(figure: GameObject[], placedFigures: GameObject[][]) {
+    for (const placedFigure of placedFigures) {
+      for (let figurePart of figure) {
+        if (figurePart.collidesWith(placedFigure)) { return true }
+      }
     }
+    return false
   }
-  return false
 }
 
-export function figureReachesFloor(currentFigure: GameObject[], placedFigures: GameObject[][]) {
+
+export function figureReachesBottom(currentFigure: GameObject[], placedFigures: GameObject[][]) {
   for (const figurePart of currentFigure) {
     if (figurePart.Y == config.gameMapHeight) { return true }
-    for (const figure of placedFigures) {
-      if (figurePart.collidesWith(figure)) { return true }
+    for (const placedFigure of placedFigures) {
+      if (figurePart.collidesWith(placedFigure)) { return true }
     }
   }
   return false

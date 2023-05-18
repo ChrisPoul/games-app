@@ -21,7 +21,7 @@ export function getFigure(figureName: FigureName) {
       new GameObject(initialX, initialY),
       new GameObject(initialX + 1, initialY),
       new GameObject(initialX + 2, initialY),
-      new GameObject(initialX + 3, initialY)
+      new GameObject(initialX + 3, initialY),
     ]
     return figure
   }
@@ -30,8 +30,7 @@ export function getFigure(figureName: FigureName) {
       new GameObject(initialX, initialY),
       new GameObject(initialX + 1, initialY),
       new GameObject(initialX + 2, initialY),
-      new GameObject(initialX + 3, initialY),
-      new GameObject(initialX + 3, initialY + 1),
+      new GameObject(initialX + 2, initialY + 1),
     ]
     return figure
   }
@@ -58,7 +57,7 @@ export function getFigure(figureName: FigureName) {
       new GameObject(initialX, initialY + 1),
       new GameObject(initialX + 1, initialY + 1),
       new GameObject(initialX + 1, initialY),
-      new GameObject(initialX + 2, initialY + 1),
+      new GameObject(initialX + 2, initialY),
     ]
     return figure
   }

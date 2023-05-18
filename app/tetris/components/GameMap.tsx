@@ -1,7 +1,7 @@
+'use-client'
 import { config } from "../config";
 import { GameObject } from "../gameObject";
 import FigureComponent from "./Figure";
-import GameObjectComponent from "./GameObject";
 
 export default function GameMapComponent(currentFigure: GameObject[], placedFigures: GameObject[][]) {
   return (

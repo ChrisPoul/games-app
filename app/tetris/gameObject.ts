@@ -5,9 +5,11 @@ const DEFAULT_DISTANCE = 1
 export class GameObject {
   X: number
   Y: number
-  constructor(X: number, Y: number) {
+  color: string
+  constructor(X: number, Y: number, color: string) {
     this.X = X
     this.Y = Y
+    this.color = color
   }
   getCoordenates() { return [this.X, this.Y] }
   /**

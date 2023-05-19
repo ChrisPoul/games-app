@@ -6,7 +6,7 @@ export default function FigureComponent(figure: GameObject[]) {
     <div>
       {figure.map((figurePart, index) => (
         <div key={index}>
-          {GameObjectComponent(figurePart, "bg-yellow-500")}
+          {GameObjectComponent(figurePart)}
         </div>
       ))}
     </div >

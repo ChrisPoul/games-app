@@ -1,10 +1,10 @@
 import { GameObject } from "../gameObject";
 import { config } from "../config";
 
-export default function GameObjectComponent(gameObject: GameObject, gameObjectColor: string) {
+export default function GameObjectComponent(gameObject: GameObject) {
   return (
     <button
-      className={"rounded absolute " + gameObjectColor}
+      className={"rounded absolute " + gameObject.color}
       style={{
         left: gameObject.X * config.gameSizeScale + config.gameSizeUnit,
         top: gameObject.Y * config.gameSizeScale + config.gameSizeUnit,

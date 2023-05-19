@@ -1,6 +1,6 @@
 import { getRandomInt } from "../common";
 import { config } from "./config";
-import { FigureName, getFigure as generteFigure } from "./figures";
+import { FigureName, getFigure } from "./figures";
 import { GameObject } from "./gameObject";
 
 export function generateRandomFigure() {
@@ -8,7 +8,7 @@ export function generateRandomFigure() {
   const randomIndex = getRandomInt(figureNames.length - 1)
   const randomFigureName = figureNames[randomIndex]
 
-  return generteFigure(randomFigureName)
+  return getFigure(randomFigureName)
 }
 
 export function moveFigure(figure: GameObject[], direction: string) {

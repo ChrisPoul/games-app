@@ -11,6 +11,13 @@ export function generateRandomFigure() {
   return getFigure(randomFigureName)
 }
 
+export function figureReachesTop(figure: GameObject[]) {
+  for (const figurePart of figure) {
+    if (figurePart.Y < 0) { return true }
+  }
+  return false
+}
+
 export function moveFigure(figure: GameObject[], direction: string) {
   for (let figurePart of figure) {
     switch (direction) {

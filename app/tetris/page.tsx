@@ -1,20 +1,23 @@
 'use client';
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { config } from "./config";
 import GameMapComponent from "./components/GameMap";
 import {
   figureCollides, moveFigure, generateRandomFigure,
-  updateFigureRotation
+  updateFigureRotation,
+  figureReachesTop
 } from "./game";
 import { GameObject } from "./gameObject";
 import { getFigure } from "./figures";
 
 export default function Page() {
+  let gameIsOver = useRef(false)
   const [figure, setFigure] = useState(getFigure("Z"))
   const [placedFigures, setPlacedFigures] = useState<GameObject[][]>([])
 
   // handle user directional input
   useEffect(() => {
+    if (gameIsOver.current == true) { return }
     function handleKeyDown(event: KeyboardEvent) {
       switch (event.key) {
         case "ArrowUp": break
@@ -33,6 +36,7 @@ export default function Page() {
 
   // handle user rotational input
   useEffect(() => {
+    if (gameIsOver.current == true) { return }
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key == "a") { updateFigureRotation(placedFigures, figure, "left") }
       else if (event.key == "d") { updateFigureRotation(placedFigures, figure, "right") }
@@ -48,8 +52,12 @@ export default function Page() {
 
   // run game cicle
   useEffect(() => {
+    if (gameIsOver.current == true) { return }
     const interval = setInterval(() => {
       updateFigurePosition(placedFigures, figure, "Down")
+      if (figureReachesTop(figure)) {
+        gameIsOver.current = true
+      }
       setFigure(figure => [...figure])
     }, config.milisecondsPerFrame);
 

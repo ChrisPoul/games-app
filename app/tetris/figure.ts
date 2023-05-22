@@ -2,7 +2,7 @@ import { config } from "./config"
 import { Direction, GameObject } from "./gameObject"
 
 const INITIAL_X = Math.floor(config.gameMapWidth / 2)
-const INITIAL_Y = 0
+const INITIAL_Y = -1
 
 export type FigureName = "I" | "L" | "T" | "O" | "S" | "Z"
 

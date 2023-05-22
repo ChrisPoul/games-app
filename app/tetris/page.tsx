@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import { config } from "./config";
 import GameMapComponent from "./components/GameMap";
 import {
@@ -9,17 +9,17 @@ import {
   updateFigurePosition,
   updatePlacedFigures
 } from "./game";
-import { Figure } from "./figures";
-import { getFigure } from "./figures";
+import { Figure } from "./figure";
+import { getFigure } from "./figure";
 
 export default function Page() {
-  let gameIsOver = useRef(false)
+  const [gameIsOver, setGameIsOver] = useState(false)
   let [figure, setFigure] = useState(getFigure("Z"))
   let [placedFigures, setPlacedFigures] = useState<Figure[]>([])
 
   // handle user input
   useEffect(() => {
-    if (gameIsOver.current == true) { return }
+    if (gameIsOver) { return }
     function handleKeyDown(event: KeyboardEvent) {
       switch (event.key) {
         case "ArrowUp": break
@@ -39,11 +39,11 @@ export default function Page() {
   }, [placedFigures])
   // run game cicle
   useEffect(() => {
-    if (gameIsOver.current == true) { return }
+    if (gameIsOver) { return }
     const interval = setInterval(() => {
       handleFigureGoingDown()
       setFigure(figure => new Figure(...figure))
-      if (figureReachesTop(figure)) { gameIsOver.current = true }
+      if (figureReachesTop(figure)) { setGameIsOver(true) }
     }, config.milisecondsPerFrame);
 
     return () => clearInterval(interval);

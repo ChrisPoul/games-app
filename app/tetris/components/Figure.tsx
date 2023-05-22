@@ -1,4 +1,4 @@
-import { Figure } from "../figures";
+import { Figure } from "../figure";
 import GameObjectComponent from "./GameObject";
 
 export default function FigureComponent(figure: Figure) {

@@ -11,13 +11,13 @@ export function playerDirectionIsValid(oldDirection: string, newDirection: strin
   return true
 }
 
-export function updatePlayer(player: Figure, food: Figure, playerDirection: string) {
+export function updatePlayer(player: GameObject[], food: GameObject[], playerDirection: string) {
   handleSnakeEatingFood(player, food)
   updateSnakePosition(player)
   const playerHead = player[0]
   playerHead.updatePosition(playerDirection)
 
-  function handleSnakeEatingFood(snake: Figure, food: Figure) {
+  function handleSnakeEatingFood(snake: GameObject[], food: GameObject[]) {
     const snakeHead = snake[0]
     for (const foodItem of food) {
       if (snakeHead.collidesWith([foodItem])) {
@@ -27,7 +27,7 @@ export function updatePlayer(player: Figure, food: Figure, playerDirection: stri
         return
       }
     }
-    function addNewFoodItem(snake: Figure, foodItem: GameObject) {
+    function addNewFoodItem(snake: GameObject[], foodItem: GameObject) {
       foodItem.X = getRandomInt(config.gameMapWidth)
       foodItem.Y = getRandomInt(config.gameMapHeight)
       if (foodItem.collidesWith(snake)) { addNewFoodItem(snake, foodItem) }
@@ -36,7 +36,7 @@ export function updatePlayer(player: Figure, food: Figure, playerDirection: stri
     }
   }
 
-  function updateSnakePosition(snake: Figure) {
+  function updateSnakePosition(snake: GameObject[]) {
     const snakeBody = snake.slice(1)
     for (let index = snakeBody.length; index > 0; index--) {
       let currentBodyPart = snake[index]
@@ -47,7 +47,7 @@ export function updatePlayer(player: Figure, food: Figure, playerDirection: stri
   }
 }
 
-export function playerLosses(player: Figure) {
+export function playerLosses(player: GameObject[]) {
   const playerHead = player[0]
   const playerBody = player.slice(1)
   if (playerHead.collidesWith(playerBody)) { return true }

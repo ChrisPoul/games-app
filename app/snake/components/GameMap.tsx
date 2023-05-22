@@ -2,7 +2,7 @@ import { GameObject } from "../gameObject";
 import { config } from "../config";
 import GameObjectComponent from "./GameObject";
 
-export default function GameMapComponent(snake: Figure, food: Figure) {
+export default function GameMapComponent(snake: GameObject[], food: GameObject[]) {
   return (
     <div
       className="bg-black m-auto relative rounded"

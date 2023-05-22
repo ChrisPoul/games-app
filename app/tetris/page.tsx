@@ -9,13 +9,13 @@ import {
   updateFigurePosition,
   updatePlacedFigures
 } from "./game";
-import { GameObject } from "./gameObject";
+import { Figure } from "./figures";
 import { getFigure } from "./figures";
 
 export default function Page() {
   let gameIsOver = useRef(false)
   let [figure, setFigure] = useState(getFigure("Z"))
-  let [placedFigures, setPlacedFigures] = useState<GameObject[][]>([])
+  let [placedFigures, setPlacedFigures] = useState<Figure[]>([])
 
   // handle user input
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function Page() {
         case "a": updateFigureRotation(placedFigures, figure, "left"); break
         case "d": updateFigureRotation(placedFigures, figure, "right"); break
       }
-      setFigure(figure => [...figure])
+      setFigure(figure => new Figure(...figure))
     }
     document.addEventListener('keydown', handleKeyDown);
 
@@ -42,7 +42,7 @@ export default function Page() {
     if (gameIsOver.current == true) { return }
     const interval = setInterval(() => {
       handleFigureGoingDown()
-      setFigure(figure => [...figure])
+      setFigure(figure => new Figure(...figure))
       if (figureReachesTop(figure)) { gameIsOver.current = true }
     }, config.milisecondsPerFrame);
 
@@ -52,9 +52,10 @@ export default function Page() {
   function handleFigureGoingDown() {
     updateFigurePosition(placedFigures, figure, "Down")
     if (figureCollides(figure, placedFigures)) {
+      figure.move("Up")
       placedFigures = updatePlacedFigures(placedFigures, figure)
       setPlacedFigures(placedFigures)
-      setFigure(getFigure("I"))
+      setFigure(generateRandomFigure())
     }
   }
 

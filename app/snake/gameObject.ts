@@ -14,7 +14,7 @@ export class GameObject {
    * We assert if the object colides with any of the objects contained
    * in the list.
    */
-  collidesWith(gameObjects: GameObject[]) {
+  collidesWith(gameObjects: Figure) {
     for (const gameObject of gameObjects) {
       const yAxisMatches = this.Y === gameObject.Y
       const xAxisMatches = this.X === gameObject.X

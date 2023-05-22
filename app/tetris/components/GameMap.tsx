@@ -3,7 +3,7 @@ import { config } from "../config";
 import { GameObject } from "../gameObject";
 import FigureComponent from "./Figure";
 
-export default function GameMapComponent(currentFigure: GameObject[], placedFigures: GameObject[][]) {
+export default function GameMapComponent(currentFigure: Figure, placedFigures: Figure[]) {
   return (
     <div
       className="bg-black m-auto relative rounded"

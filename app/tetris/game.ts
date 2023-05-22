@@ -2,25 +2,28 @@ import { getRandomInt } from "../common";
 import { config } from "./config";
 import { FigureName, getFigure } from "./figures";
 import { Direction, GameObject } from "./gameObject";
+import { Figure } from "./figures";
 
-export function updateFigurePosition(placedFigures: GameObject[][], currentFigure: GameObject[], direction: Direction) {
-  moveFigure(currentFigure, direction)
+export function updateFigurePosition(placedFigures: Figure[], currentFigure: Figure, direction: Direction) {
+  currentFigure.move(direction)
   switch (direction) {
     case "Right":
-      if (figureCollides(currentFigure, placedFigures)) { moveFigure(currentFigure, "Left") }; break
+      if (figureCollides(currentFigure, placedFigures)) { currentFigure.move("Left") }; break
     case "Left":
-      if (figureCollides(currentFigure, placedFigures)) { moveFigure(currentFigure, "Right") }; break
+      if (figureCollides(currentFigure, placedFigures)) { currentFigure.move("Right") }; break
   }
 }
 
-function moveFigure(figure: GameObject[], direction: Direction) {
-  for (let figurePart of figure) {
-    figurePart.move(direction)
+export function handleFigureGoingDown(placedFigures: Figure[], figure: Figure): [Figure[], Figure] {
+  updateFigurePosition(placedFigures, figure, "Down")
+  if (figureCollides(figure, placedFigures)) {
+    placedFigures = updatePlacedFigures(placedFigures, figure)
+    figure = generateRandomFigure()
   }
+  return [placedFigures, figure]
 }
 
-export function updatePlacedFigures(placedFigures: GameObject[][], figure: GameObject[]) {
-  moveFigure(figure, "Up")
+export function updatePlacedFigures(placedFigures: Figure[], figure: Figure) {
   placedFigures.push(figure)
   let horizontalLines: { [lineNumber: number]: number } = {};
   for (const placedFigure of placedFigures) {
@@ -34,9 +37,9 @@ export function updatePlacedFigures(placedFigures: GameObject[][], figure: GameO
   // remove horizontal lines
   for (const lineNumber in horizontalLines) {
     if (horizontalLines[lineNumber] == config.gameMapWidth - 1) {
-      let updatedPlacedFigures: GameObject[][] = []
+      let updatedPlacedFigures: Figure[] = []
       for (const placedFigure of placedFigures) {
-        let updatedPlacedFigure: GameObject[] = []
+        let updatedPlacedFigure = new Figure()
         for (const figurePart of placedFigure) {
           if (figurePart.Y == +lineNumber) { continue }
           if (figurePart.Y < +lineNumber) { figurePart.Y += 1 }
@@ -58,14 +61,14 @@ export function generateRandomFigure() {
   return getFigure(randomFigureName)
 }
 
-export function figureReachesTop(figure: GameObject[]) {
+export function figureReachesTop(figure: Figure) {
   for (const figurePart of figure) {
     if (figurePart.Y < 0) { return true }
   }
   return false
 }
 
-export function figureCollides(currentFigure: GameObject[], placedFigures: GameObject[][]) {
+export function figureCollides(currentFigure: Figure, placedFigures: Figure[]) {
   for (let figurePart of currentFigure) {
     if (figurePartExitsMap(figurePart)) { return true }
     if (figurePartCollidesWithPlacedFigures(figurePart, placedFigures)) { return true }
@@ -78,7 +81,7 @@ export function figureCollides(currentFigure: GameObject[], placedFigures: GameO
     if (figurePart.Y == config.gameMapHeight) { return true }
     return false
   }
-  function figurePartCollidesWithPlacedFigures(figurePart: GameObject, placedFigures: GameObject[][]) {
+  function figurePartCollidesWithPlacedFigures(figurePart: GameObject, placedFigures: Figure[]) {
     for (const placedFigure of placedFigures) {
       if (figurePart.collidesWith(placedFigure)) { return true }
     }
@@ -89,7 +92,7 @@ export function figureCollides(currentFigure: GameObject[], placedFigures: GameO
   }
 }
 
-export function updateFigureRotation(placedFigures: GameObject[][], currentFigure: GameObject[], direction: "right" | "left") {
+export function updateFigureRotation(placedFigures: Figure[], currentFigure: Figure, direction: "right" | "left") {
   if (direction == "right") {
     rotateFigure(currentFigure, direction)
     if (figureCollides(currentFigure, placedFigures)) { rotateFigure(currentFigure, "left") }
@@ -99,7 +102,7 @@ export function updateFigureRotation(placedFigures: GameObject[][], currentFigur
     if (figureCollides(currentFigure, placedFigures)) { rotateFigure(currentFigure, "right") }
   }
 
-  function rotateFigure(figure: GameObject[], direction: "right" | "left") {
+  function rotateFigure(figure: Figure, direction: "right" | "left") {
     const centerFigurePart = figure[Math.floor(figure.length / 2)]
     const posX = centerFigurePart.X
     const posY = centerFigurePart.Y

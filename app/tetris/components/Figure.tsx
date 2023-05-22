@@ -1,7 +1,7 @@
-import { GameObject } from "../gameObject";
+import { Figure } from "../figures";
 import GameObjectComponent from "./GameObject";
 
-export default function FigureComponent(figure: GameObject[]) {
+export default function FigureComponent(figure: Figure) {
   return (
     <div>
       {figure.map((figurePart, index) => (

@@ -17,7 +17,7 @@ export function getFigure(figureName: FigureName) {
   }
 
   function getIFigure() {
-    const figureColor = "bg-red-600"
+    const figureColor = "red-600"
     let figure = [
       new GameObject(INITIAL_X, INITIAL_Y, figureColor),
       new GameObject(INITIAL_X + 1, INITIAL_Y, figureColor),
@@ -27,7 +27,7 @@ export function getFigure(figureName: FigureName) {
     return figure
   }
   function getLFigure() {
-    const figureColor = "bg-yellow-300"
+    const figureColor = "yellow-300"
     let figure = [
       new GameObject(INITIAL_X, INITIAL_Y, figureColor),
       new GameObject(INITIAL_X + 1, INITIAL_Y, figureColor),
@@ -37,7 +37,7 @@ export function getFigure(figureName: FigureName) {
     return figure
   }
   function getTFigure() {
-    const figureColor = "bg-green-600"
+    const figureColor = "green-600"
     let figure = [
       new GameObject(INITIAL_X, INITIAL_Y, figureColor),
       new GameObject(INITIAL_X + 1, INITIAL_Y, figureColor),
@@ -47,7 +47,7 @@ export function getFigure(figureName: FigureName) {
     return figure
   }
   function getOFigure() {
-    const figureColor = "bg-blue-800"
+    const figureColor = "blue-800"
     let figure = [
       new GameObject(INITIAL_X, INITIAL_Y, figureColor),
       new GameObject(INITIAL_X, INITIAL_Y + 1, figureColor),
@@ -57,7 +57,7 @@ export function getFigure(figureName: FigureName) {
     return figure
   }
   function getSFigure() {
-    const figureColor = "bg-purple-800"
+    const figureColor = "purple-800"
     let figure = [
       new GameObject(INITIAL_X, INITIAL_Y + 1, figureColor),
       new GameObject(INITIAL_X + 1, INITIAL_Y + 1, figureColor),
@@ -67,7 +67,7 @@ export function getFigure(figureName: FigureName) {
     return figure
   }
   function getZFigure() {
-    const figureColor = "bg-gray-400"
+    const figureColor = "gray-400"
     let figure = [
       new GameObject(INITIAL_X, INITIAL_Y, figureColor),
       new GameObject(INITIAL_X + 1, INITIAL_Y, figureColor),

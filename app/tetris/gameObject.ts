@@ -1,6 +1,6 @@
-import { config } from "./config"
-
 const DEFAULT_DISTANCE = 1
+
+export type Direction = "Up" | "Left" | "Right" | "Down"
 
 export class GameObject {
   X: number
@@ -26,16 +26,12 @@ export class GameObject {
     return false
   }
 
-  moveRight(distance: number = DEFAULT_DISTANCE) {
-    this.X = this.X + distance
-  }
-  moveLeft(distance: number = DEFAULT_DISTANCE) {
-    this.X = this.X - distance
-  }
-  moveUp(distance: number = DEFAULT_DISTANCE) {
-    this.Y = this.Y - distance
-  }
-  moveDown(distance: number = DEFAULT_DISTANCE) {
-    this.Y = this.Y + distance
+  move(direction: Direction, distance: number = DEFAULT_DISTANCE) {
+    switch (direction) {
+      case "Up": this.Y = this.Y - distance; break
+      case "Down": this.Y = this.Y + distance; break
+      case "Right": this.X = this.X + distance; break
+      case "Left": this.X = this.X - distance; break
+    }
   }
 }

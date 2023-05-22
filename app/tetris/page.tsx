@@ -3,9 +3,10 @@ import { useState, useEffect, useRef } from "react"
 import { config } from "./config";
 import GameMapComponent from "./components/GameMap";
 import {
-  figureCollides, moveFigure, generateRandomFigure,
+  figureCollides, generateRandomFigure,
   updateFigureRotation,
-  figureReachesTop
+  figureReachesTop,
+  updateFigurePosition
 } from "./game";
 import { GameObject } from "./gameObject";
 import { getFigure } from "./figures";
@@ -55,34 +56,20 @@ export default function Page() {
     if (gameIsOver.current == true) { return }
     const interval = setInterval(() => {
       updateFigurePosition(placedFigures, figure, "Down")
-      if (figureReachesTop(figure)) {
-        gameIsOver.current = true
+      if (figureCollides(figure, placedFigures)) {
+        updateFigurePosition(placedFigures, figure, "Up")
+        setPlacedFigures(placedFigures => [...placedFigures, figure])
+        setFigure(generateRandomFigure())
       }
-      setFigure(figure => [...figure])
+      else { setFigure(figure => [...figure]) }
+      if (figureReachesTop(figure)) { gameIsOver.current = true }
     }, config.milisecondsPerFrame);
 
     return () => clearInterval(interval);
   }, [placedFigures])
 
-  function updateFigurePosition(placedFigures: GameObject[][], currentFigure: GameObject[], direction: string) {
-    moveFigure(currentFigure, direction)
-    switch (direction) {
-      case "Up": moveFigure(currentFigure, "Down")
-      case "Down":
-        if (figureCollides(currentFigure, placedFigures)) {
-          moveFigure(currentFigure, "Up")
-          setPlacedFigures(placedFigures => [...placedFigures, currentFigure])
-          setFigure(generateRandomFigure())
-        } break
-      case "Right":
-        if (figureCollides(currentFigure, placedFigures)) { moveFigure(currentFigure, "Left") }; break
-      case "Left":
-        if (figureCollides(currentFigure, placedFigures)) { moveFigure(currentFigure, "Right") }; break
-    }
-  }
-
   return (
-    <div className="bg-amber-300 h-screen pt-6 z--10">
+    <div className="h-screen pt-6 z--10">
       {GameMapComponent(figure, placedFigures)}
     </div>
   )

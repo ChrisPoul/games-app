@@ -1,7 +1,23 @@
 import { getRandomInt } from "../common";
 import { config } from "./config";
 import { FigureName, getFigure } from "./figures";
-import { GameObject } from "./gameObject";
+import { Direction, GameObject } from "./gameObject";
+
+export function updateFigurePosition(placedFigures: GameObject[][], currentFigure: GameObject[], direction: Direction) {
+  moveFigure(currentFigure, direction)
+  switch (direction) {
+    case "Right":
+      if (figureCollides(currentFigure, placedFigures)) { moveFigure(currentFigure, "Left") }; break
+    case "Left":
+      if (figureCollides(currentFigure, placedFigures)) { moveFigure(currentFigure, "Right") }; break
+  }
+
+  function moveFigure(figure: GameObject[], direction: Direction) {
+    for (let figurePart of figure) {
+      figurePart.move(direction)
+    }
+  }
+}
 
 export function generateRandomFigure() {
   const figureNames: FigureName[] = ["I", "L", "T", "O", "S", "Z"]
@@ -16,17 +32,6 @@ export function figureReachesTop(figure: GameObject[]) {
     if (figurePart.Y < 0) { return true }
   }
   return false
-}
-
-export function moveFigure(figure: GameObject[], direction: string) {
-  for (let figurePart of figure) {
-    switch (direction) {
-      case "Up": figurePart.moveUp(); break
-      case "Down": figurePart.moveDown(); break
-      case "Right": figurePart.moveRight(); break
-      case "Left": figurePart.moveLeft(); break
-    }
-  }
 }
 
 export function figureCollides(currentFigure: GameObject[], placedFigures: GameObject[][]) {

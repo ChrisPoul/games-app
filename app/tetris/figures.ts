@@ -2,7 +2,7 @@ import { config } from "./config"
 import { GameObject } from "./gameObject"
 
 const INITIAL_X = Math.floor(config.gameMapWidth / 2)
-const INITIAL_Y = -1
+const INITIAL_Y = 0
 
 export type FigureName = "I" | "L" | "T" | "O" | "S" | "Z"
 

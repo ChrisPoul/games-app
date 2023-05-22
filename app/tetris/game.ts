@@ -11,12 +11,43 @@ export function updateFigurePosition(placedFigures: GameObject[][], currentFigur
     case "Left":
       if (figureCollides(currentFigure, placedFigures)) { moveFigure(currentFigure, "Right") }; break
   }
+}
 
-  function moveFigure(figure: GameObject[], direction: Direction) {
-    for (let figurePart of figure) {
-      figurePart.move(direction)
+function moveFigure(figure: GameObject[], direction: Direction) {
+  for (let figurePart of figure) {
+    figurePart.move(direction)
+  }
+}
+
+export function updatePlacedFigures(placedFigures: GameObject[][], figure: GameObject[]) {
+  moveFigure(figure, "Up")
+  placedFigures.push(figure)
+  let horizontalLines: { [lineNumber: number]: number } = {};
+  for (const placedFigure of placedFigures) {
+    for (const figurePart of placedFigure) {
+      if (horizontalLines.hasOwnProperty(figurePart.Y)) {
+        horizontalLines[figurePart.Y] += 1
+      }
+      else { horizontalLines[figurePart.Y] = 0 }
     }
   }
+  // remove horizontal lines
+  for (const lineNumber in horizontalLines) {
+    if (horizontalLines[lineNumber] == config.gameMapWidth - 1) {
+      let updatedPlacedFigures: GameObject[][] = []
+      for (const placedFigure of placedFigures) {
+        let updatedPlacedFigure: GameObject[] = []
+        for (const figurePart of placedFigure) {
+          if (figurePart.Y == +lineNumber) { continue }
+          if (figurePart.Y < +lineNumber) { figurePart.Y += 1 }
+          updatedPlacedFigure.push(figurePart)
+        }
+        updatedPlacedFigures.push(updatedPlacedFigure)
+      }
+      return updatedPlacedFigures
+    }
+  }
+  return [...placedFigures]
 }
 
 export function generateRandomFigure() {

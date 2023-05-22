@@ -6,25 +6,28 @@ import {
   figureCollides, generateRandomFigure,
   updateFigureRotation,
   figureReachesTop,
-  updateFigurePosition
+  updateFigurePosition,
+  updatePlacedFigures
 } from "./game";
 import { GameObject } from "./gameObject";
 import { getFigure } from "./figures";
 
 export default function Page() {
   let gameIsOver = useRef(false)
-  const [figure, setFigure] = useState(getFigure("Z"))
-  const [placedFigures, setPlacedFigures] = useState<GameObject[][]>([])
+  let [figure, setFigure] = useState(getFigure("Z"))
+  let [placedFigures, setPlacedFigures] = useState<GameObject[][]>([])
 
-  // handle user directional input
+  // handle user input
   useEffect(() => {
     if (gameIsOver.current == true) { return }
     function handleKeyDown(event: KeyboardEvent) {
       switch (event.key) {
         case "ArrowUp": break
-        case "ArrowDown": updateFigurePosition(placedFigures, figure, "Down"); break
+        case "ArrowDown": handleFigureGoingDown(); break
         case "ArrowLeft": updateFigurePosition(placedFigures, figure, "Left"); break
         case "ArrowRight": updateFigurePosition(placedFigures, figure, "Right"); break
+        case "a": updateFigureRotation(placedFigures, figure, "left"); break
+        case "d": updateFigureRotation(placedFigures, figure, "right"); break
       }
       setFigure(figure => [...figure])
     }
@@ -34,39 +37,26 @@ export default function Page() {
       document.removeEventListener('keydown', handleKeyDown);
     }
   }, [placedFigures])
-
-  // handle user rotational input
-  useEffect(() => {
-    if (gameIsOver.current == true) { return }
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key == "a") { updateFigureRotation(placedFigures, figure, "left") }
-      else if (event.key == "d") { updateFigureRotation(placedFigures, figure, "right") }
-      else { return }
-      setFigure(figure => [...figure])
-    }
-    document.addEventListener('keydown', handleKeyDown)
-
-    return function cleanup() {
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [placedFigures])
-
   // run game cicle
   useEffect(() => {
     if (gameIsOver.current == true) { return }
     const interval = setInterval(() => {
-      updateFigurePosition(placedFigures, figure, "Down")
-      if (figureCollides(figure, placedFigures)) {
-        updateFigurePosition(placedFigures, figure, "Up")
-        setPlacedFigures(placedFigures => [...placedFigures, figure])
-        setFigure(generateRandomFigure())
-      }
-      else { setFigure(figure => [...figure]) }
+      handleFigureGoingDown()
+      setFigure(figure => [...figure])
       if (figureReachesTop(figure)) { gameIsOver.current = true }
     }, config.milisecondsPerFrame);
 
     return () => clearInterval(interval);
   }, [placedFigures])
+
+  function handleFigureGoingDown() {
+    updateFigurePosition(placedFigures, figure, "Down")
+    if (figureCollides(figure, placedFigures)) {
+      placedFigures = updatePlacedFigures(placedFigures, figure)
+      setPlacedFigures(placedFigures)
+      setFigure(getFigure("I"))
+    }
+  }
 
   return (
     <div className="h-screen pt-6 z--10">

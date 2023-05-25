@@ -21,6 +21,12 @@ export default function Page() {
   ])
   const [gameIsOver, setGameIsOver] = useState(false)
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 640px)")
+    if (mediaQuery.matches) {
+      return
+    }
+  }, [])
   // handle user input
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -54,7 +60,7 @@ export default function Page() {
   }, [snake])
 
   return (
-    <div className="bg-amber-300 h-screen pt-6 z--10">
+    <div className="bg-amber-300 h-screen z--10 overflow-hidden">
       {GameMapComponent(snake, food)}
       {GameMenuComponent()}
       {GameOverScreenComponent(gameIsOver, snake.length)}

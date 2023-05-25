@@ -1,8 +1,6 @@
 interface Config {
-  gameSizeScale: number
-  gameMapWidth: number
-  gameMapHeight: number
-  snakeMovementSpead: string
+  horizontalScaling: number
+  verticalScaling: number
   milisecondsPerFrame: number
   speedIncrease: number
 }

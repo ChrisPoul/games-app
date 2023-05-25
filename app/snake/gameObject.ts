@@ -23,7 +23,7 @@ export class GameObject {
     return false
   }
 
-  updatePosition(direction: string) {
+  move(direction: string) {
     switch (direction) {
       case "Right":
         this.X = this.X + distance
@@ -37,18 +37,6 @@ export class GameObject {
       case "Down":
         this.Y = this.Y + distance
         break
-    }
-    if (this.X >= config.gameMapWidth) {
-      this.X = 0
-    }
-    else if (this.X < 0) {
-      this.X = config.gameMapWidth - 1
-    }
-    if (this.Y < 0) {
-      this.Y = config.gameMapHeight - 1
-    }
-    if (this.Y >= config.gameMapHeight) {
-      this.Y = 0
     }
   }
 }

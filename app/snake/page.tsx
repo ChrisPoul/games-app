@@ -3,7 +3,8 @@ import { useState, useEffect, useRef } from "react"
 import { config } from "./config";
 import { GameObject } from "./gameObject";
 import {
-  playerDirectionIsValid, updatePlayer, playerLosses
+  playerDirectionIsValid, updatePlayer,
+  playerLosses, getMapWidth, addNewFoodItem
 } from "./game";
 import GameMenuComponent from "./components/GameMenu";
 import GameMapComponent from "./components/GameMap";
@@ -12,20 +13,23 @@ import GameOverScreenComponent from "./components/GameOverScreen";
 export default function Page() {
   const snakeDirection = useRef("Down")
   const newSnakeDirection = useRef("Down")
-  const [food, setFood] = useState([
-    new GameObject(Math.floor(config.gameMapWidth / 2), 10),
-    new GameObject(Math.floor(config.gameMapWidth / 2), 14)
-  ])
-  const [snake, setSnake] = useState([
-    new GameObject(Math.floor(config.gameMapWidth / 2), 0)
+  const [food, setFood] = useState<GameObject[]>([])
+  const [snake, setSnake] = useState<GameObject[]>([
+    new GameObject(Math.floor(getMapWidth() / 2), 0)
   ])
   const [gameIsOver, setGameIsOver] = useState(false)
 
+  // initial setup
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 640px)")
     if (mediaQuery.matches) {
-      return
+      config.horizontalScaling = 7
+      config.verticalScaling = 4
     }
+    setSnake([new GameObject(Math.floor(getMapWidth() / 2), 0)])
+    addNewFoodItem(food, snake)
+    addNewFoodItem(food, snake)
+    setFood(food)
   }, [])
   // handle user input
   useEffect(() => {
@@ -41,7 +45,6 @@ export default function Page() {
       document.removeEventListener('keydown', handleKeyDown);
     }
   }, [])
-
   // run game logic
   useEffect(() => {
     setTimeout(() => {
@@ -60,7 +63,7 @@ export default function Page() {
   }, [snake])
 
   return (
-    <div className="bg-amber-300 h-screen z--10 overflow-hidden">
+    <div className="overflow-hidden">
       {GameMapComponent(snake, food)}
       {GameMenuComponent()}
       {GameOverScreenComponent(gameIsOver, snake.length)}

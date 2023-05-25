@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { IoMdSettings } from "react-icons/io"
 import SettingsMenuComponent from "./SettingsMenu"
 
 export default function GameMenuComponent() {
@@ -46,7 +47,7 @@ export default function GameMenuComponent() {
         <button className="absolute top-0 right-0 bg-gray-400 p-2 rounded mt-1 mr-1"
           onClick={openSettingsMenu}
         >
-          settings
+          <IoMdSettings />
         </button>
       }
     </div>

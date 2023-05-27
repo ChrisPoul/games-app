@@ -55,33 +55,31 @@ export default function Home() {
             Snake <span>-&gt;</span>
           </h2>
           <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
+            Un juego de snake
+          </p>
+        </Link>
+
+        <Link
+          href="/tetris"
+          className={styles.card}
+        >
+          <h2 className={inter.className}>
+            Tetris <span>-&gt;</span>
+          </h2>
+          <p className={inter.className}>
+            Un juego de tetris
           </p>
         </Link>
 
         <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+          href="/movie-generator"
           className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
         >
           <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
+            Movie Generator <span>-&gt;</span>
           </h2>
           <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
+            Un generador de peliculas al azar
           </p>
         </a>
       </div>

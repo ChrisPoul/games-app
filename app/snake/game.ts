@@ -3,11 +3,11 @@ import { getRandomInt } from "../common";
 import { config } from "./config";
 
 export function getMapWidth() {
-  return Math.floor(100 / config.horizontalScaling) + 1
+  return Math.ceil(100 / config.horizontalScaling)
 }
 
 function getMapHeight() {
-  return Math.floor(100 / config.verticalScaling) + 1
+  return Math.ceil(100 / config.verticalScaling)
 }
 
 export function playerDirectionIsValid(oldDirection: string, newDirection: string) {

@@ -23,7 +23,6 @@ export default function Page() {
 
   // inital setup
   useEffect(() => {
-    window.addEventListener("load", function () { window.scrollTo(0, 1); })
     const mediaQuery = window.matchMedia("(max-width: 640px)")
     if (mediaQuery.matches) {
       config.horizontalScaling = 7

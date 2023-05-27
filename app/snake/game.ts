@@ -3,11 +3,11 @@ import { getRandomInt } from "../common";
 import { config } from "./config";
 
 export function getMapWidth() {
-  return Math.floor(100 / config.horizontalScaling)
+  return Math.floor(100 / config.horizontalScaling) + 1
 }
 
 function getMapHeight() {
-  return Math.floor(100 / config.verticalScaling)
+  return Math.floor(100 / config.verticalScaling) + 1
 }
 
 export function playerDirectionIsValid(oldDirection: string, newDirection: string) {
@@ -19,25 +19,12 @@ export function playerDirectionIsValid(oldDirection: string, newDirection: strin
   return true
 }
 
-export function updatePlayer(player: GameObject[], food: GameObject[], playerDirection: string) {
+export function updatePlayer(snake: GameObject[], food: GameObject[], playerDirection: string) {
   const mapWidth = getMapWidth()
   const mapHeight = getMapHeight()
-  handleSnakeEatingFood(player, food)
-  updateSnakePosition(player)
-  const playerHead = player[0]
-  playerHead.move(playerDirection)
-  if (playerHead.X >= mapWidth) {
-    playerHead.X = 0
-  }
-  else if (playerHead.X < 0) {
-    playerHead.X = mapWidth - 1
-  }
-  if (playerHead.Y < 0) {
-    playerHead.Y = mapHeight - 1
-  }
-  if (playerHead.Y >= mapHeight) {
-    playerHead.Y = 0
-  }
+  handleSnakeEatingFood(snake, food)
+  updateSnakeBody(snake)
+  updateSnakeHead(snake[0])
 
   function handleSnakeEatingFood(snake: GameObject[], food: GameObject[]) {
     const snakeHead = snake[0]
@@ -52,7 +39,7 @@ export function updatePlayer(player: GameObject[], food: GameObject[], playerDir
       }
     }
   }
-  function updateSnakePosition(snake: GameObject[]) {
+  function updateSnakeBody(snake: GameObject[]) {
     const snakeBody = snake.slice(1)
     for (let index = snakeBody.length; index > 0; index--) {
       let currentBodyPart = snake[index]
@@ -60,6 +47,13 @@ export function updatePlayer(player: GameObject[], food: GameObject[], playerDir
       currentBodyPart.X = nextBodyPart.X
       currentBodyPart.Y = nextBodyPart.Y
     }
+  }
+  function updateSnakeHead(snakeHead: GameObject) {
+    snakeHead.move(playerDirection)
+    if (snakeHead.X >= mapWidth) { snakeHead.X = 0 }
+    else if (snakeHead.X < 0) { snakeHead.X = mapWidth - 1 }
+    if (snakeHead.Y < 0) { snakeHead.Y = mapHeight - 1 }
+    else if (snakeHead.Y >= mapHeight) { snakeHead.Y = 0 }
   }
 }
 
@@ -73,9 +67,9 @@ export function addNewFoodItem(food: GameObject[], snake: GameObject[]) {
 }
 
 export function playerLosses(player: GameObject[]) {
-  const playerHead = player[0]
+  const snakeHead = player[0]
   const playerBody = player.slice(1)
-  if (playerHead.collidesWith(playerBody)) { return true }
+  if (snakeHead.collidesWith(playerBody)) { return true }
   return false
 }
 

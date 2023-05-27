@@ -6,9 +6,9 @@ import {
   playerDirectionIsValid, updatePlayer,
   playerLosses, getMapWidth, addNewFoodItem
 } from "./game";
-import GameMenuComponent from "./components/GameMenu";
 import GameMapComponent from "./components/GameMap";
 import GameOverScreenComponent from "./components/GameOverScreen";
+import SettingsMenuComponent from "./components/SettingsMenu";
 
 export default function Page() {
   const snakeDirection = useRef("Down")
@@ -65,7 +65,7 @@ export default function Page() {
   return (
     <div className="overflow-hidden">
       {GameMapComponent(snake, food)}
-      {GameMenuComponent()}
+      {SettingsMenuComponent()}
       {GameOverScreenComponent(gameIsOver, snake.length)}
     </div>
   )

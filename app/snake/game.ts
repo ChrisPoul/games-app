@@ -59,7 +59,7 @@ export function updatePlayer(snake: GameObject[], food: GameObject[], playerDire
 
 export function addNewFoodItem(food: GameObject[], snake: GameObject[]) {
   const foodItem = new GameObject(
-    getRandomInt(getMapWidth()), getRandomInt(getMapWidth())
+    getRandomInt(getMapWidth()), getRandomInt(getMapHeight())
   )
   if (foodItem.collidesWith(snake)) { addNewFoodItem(food, snake) }
   else if (foodItem.collidesWith(food)) { addNewFoodItem(food, snake) }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import Overlay from "./Overlay"
+import Overlay from "../../components/Overlay"
 
 export default function GameOverScreenComponent(gameIsOver: boolean, gameScore: number) {
   function tryAgain() { location.reload() }

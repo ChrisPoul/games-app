@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { IoMdSettings } from "react-icons/io"
 import { config } from "../config";
-import Overlay from "./Overlay";
+import Overlay from "../../components/Overlay";
 
 export default function SettingsMenuComponent() {
   const [isOpen, setIsOpen] = useState(false)

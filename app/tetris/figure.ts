@@ -7,9 +7,9 @@ const INITIAL_Y = -1
 export type FigureName = "I" | "L" | "T" | "O" | "S" | "Z"
 
 export class Figure extends Array<GameObject> {
-  // constructor(...figureBlocks: Figure) {
-  //   super(...figureBlocks)
-  // }
+  constructor(...figureBlocks: GameObject[]) {
+    super(...figureBlocks)
+  }
   move(direction: Direction) {
     for (let figurePart of this) {
       figurePart.move(direction)

@@ -18,6 +18,7 @@ export default function Page() {
     new GameObject(Math.floor(getMapWidth() / 2), 0)
   ])
   const [gameIsOver, setGameIsOver] = useState(false)
+  const [gameIsRunning, setGameIsRunning] = useState(true)
   const [touchStart, setTouchStart] = useState<[number, number] | null>(null)
   const [touchEnd, setTouchEnd] = useState<[number, number] | null>(null)
 
@@ -27,14 +28,15 @@ export default function Page() {
     if (mediaQuery.matches) {
       config.horizontalScaling = 7
       config.verticalScaling = 4
+      setSnake([new GameObject(Math.floor(getMapWidth() / 2), 0)])
     }
-    setSnake([new GameObject(Math.floor(getMapWidth() / 2), 0)])
     addNewFoodItem(food, snake)
     addNewFoodItem(food, snake)
     setFood(food => [...food])
   }, [])
   // handle user input
   useEffect(() => {
+    if (!gameIsRunning) { return }
     document.addEventListener('keydown', handleKeyDown);
     return function cleanup() {
       document.removeEventListener('keydown', handleKeyDown);
@@ -45,9 +47,10 @@ export default function Page() {
         newSnakeDirection.current = keyPressed.replace("Arrow", "")
       }
     }
-  }, [])
+  }, [gameIsRunning])
   // run game cicle
   useEffect(() => {
+    if (!gameIsRunning) { return }
     const interval = setInterval(() => {
       if (playerDirectionIsValid(snakeDirection.current, newSnakeDirection.current) || snake.length == 1) {
         snakeDirection.current = newSnakeDirection.current
@@ -56,6 +59,7 @@ export default function Page() {
         setTimeout(() => {
           setGameIsOver(true)
         }, 1000)
+        setGameIsRunning(false)
         return
       }
       updatePlayer(snake, food, snakeDirection.current)
@@ -64,9 +68,9 @@ export default function Page() {
     }, config.milisecondsPerFrame)
 
     return () => clearInterval(interval);
-  }, [snake])
+  }, [snake, gameIsRunning])
 
-  // the required distance between touchStart and touchEnd to be detected as a swipe
+  // touch support
   const minSwipeDistance = 60
   function onTouchStart(event: TouchEvent<HTMLDivElement>) {
     setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
@@ -88,6 +92,7 @@ export default function Page() {
     if (yDistance > minSwipeDistance) { newSnakeDirection.current = "Up" }
     else if (yDistance < -minSwipeDistance) { newSnakeDirection.current = "Down" }
   }
+  function toggleGameIsRunning() { setGameIsRunning(!gameIsRunning) }
 
   return (
     <div className="overflow-hidden"
@@ -96,7 +101,7 @@ export default function Page() {
       onTouchEnd={onTouchEnd}
     >
       {GameMapComponent(snake, food)}
-      {SettingsMenuComponent()}
+      {SettingsMenuComponent(toggleGameIsRunning)}
       {GameOverScreenComponent(gameIsOver, snake.length)}
     </div>
   )

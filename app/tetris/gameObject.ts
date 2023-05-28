@@ -1,14 +1,17 @@
-import { config } from "./config"
+const DEFAULT_DISTANCE = 1
 
-const distance = 1
+export type Direction = "Up" | "Left" | "Right" | "Down"
 
 export class GameObject {
-  positionX: number
-  positionY: number
-  constructor(positionX: number, positionY: number) {
-    this.positionX = positionX
-    this.positionY = positionY
+  X: number
+  Y: number
+  color: string
+  constructor(X: number, Y: number, color: string) {
+    this.X = X
+    this.Y = Y
+    this.color = color
   }
+  getCoordenates() { return [this.X, this.Y] }
   /**
    * @param gameObjects Should be a list of instances of {@link GameObject}.
    * We assert if the object colides with any of the objects contained
@@ -16,39 +19,19 @@ export class GameObject {
    */
   collidesWith(gameObjects: GameObject[]) {
     for (const gameObject of gameObjects) {
-      const yAxisMatches = this.positionY === gameObject.positionY
-      const xAxisMatches = this.positionX === gameObject.positionX
+      const yAxisMatches = this.Y === gameObject.Y
+      const xAxisMatches = this.X === gameObject.X
       if (yAxisMatches && xAxisMatches && this != gameObject) { return true }
     }
     return false
   }
 
-  updatePosition(direction: string) {
+  move(direction: Direction, distance: number = DEFAULT_DISTANCE) {
     switch (direction) {
-      case "Right":
-        this.positionX = this.positionX + distance
-        break
-      case "Left":
-        this.positionX = this.positionX - distance
-        break
-      case "Up":
-        this.positionY = this.positionY - distance
-        break
-      case "Down":
-        this.positionY = this.positionY + distance
-        break
-    }
-    if (this.positionX >= config.gameMapWidth) {
-      this.positionX = 0
-    }
-    else if (this.positionX < 0) {
-      this.positionX = config.gameMapWidth - 1
-    }
-    if (this.positionY < 0) {
-      this.positionY = config.gameMapHeight - 1
-    }
-    if (this.positionY >= config.gameMapHeight) {
-      this.positionY = 0
+      case "Up": this.Y = this.Y - distance; break
+      case "Down": this.Y = this.Y + distance; break
+      case "Right": this.X = this.X + distance; break
+      case "Left": this.X = this.X - distance; break
     }
   }
 }

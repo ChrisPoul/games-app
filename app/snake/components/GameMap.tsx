@@ -1,15 +1,10 @@
 import { GameObject } from "../gameObject";
-import { config } from "../config";
 import GameObjectComponent from "./GameObject";
 
 export default function GameMapComponent(snake: GameObject[], food: GameObject[]) {
   return (
     <div
-      className="bg-black m-auto relative rounded"
-      style={{
-        width: config.gameMapWidth * config.gameSizeScale + config.gameSizeUnit,
-        height: config.gameMapHeight * config.gameSizeScale + config.gameSizeUnit
-      }}
+      className="bg-black m-auto relative rounded w-screen h-screen"
     >
       <div>
         {food.map((foodItem, index) => (

@@ -1,8 +1,8 @@
 {
-  "gameSizeScale": 3,
+  "gameSizeScale": 2,
   "gameSizeUnit": "em",
-  "gameMapWidth": 14,
-  "gameMapHeight": 15,
-  "milisecondsPerFrame": 300,
+  "gameMapWidth": 16,
+  "gameMapHeight": 23,
+  "milisecondsPerFrame": 400,
   "speedIncrease": 2
 }

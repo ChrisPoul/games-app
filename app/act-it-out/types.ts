@@ -1,21 +1,21 @@
 interface Movie {
-  titleText: TitleText | null
-  primaryImage: PrimaryImage | null
-  releaseDate: ReleaseDate | null
+  titleText: TitleText
+  primaryImage: PrimaryImage
+  releaseDate: ReleaseDate
 }
 
 interface TitleText {
-  text: string | null
+  text: string
 }
 
 interface PrimaryImage {
-  width: number | null
-  height: number | null
+  width: number
+  height: number
   url: string
 }
 
 interface ReleaseDate {
-  day: number | null
-  month: number | null
-  year: number | null
+  day: number
+  month: number
+  year: number
 }

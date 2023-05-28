@@ -31,16 +31,19 @@ export default function SettingsMenuComponent(toggleGameIsRunning: () => void, g
         <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
           Settings
         </h1>
-        <h2>Score: {gameScore}</h2>
-        <input
-          type="range"
-          min={1}
-          max={160}
-          value={config.milisecondsPerFrame}
-          step={2}
-          onChange={updateMilisecondsPerFrame}
-          onClick={updateMilisecondsPerFrame}
-        />
+        <h2 className="font-bold text-lg">Score: {gameScore}</h2>
+        <div>
+          <h2 className="font-bold text-lg">Configure Miliseconds Per Frame:</h2>
+          <input
+            type="range"
+            min={1}
+            max={160}
+            step={2}
+            defaultValue={config.milisecondsPerFrame}
+            onChange={updateMilisecondsPerFrame}
+            onClick={updateMilisecondsPerFrame}
+          />
+        </div>
         <button
           className="bg-gray-400 p-4 rounded block m-auto w-28"
           onClick={toggleMenu}

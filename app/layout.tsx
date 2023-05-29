@@ -12,11 +12,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className='overscroll-none'>
       <head>
         <link rel="manifest" href="/app.webmanifest" />
       </head>
-      <body>
+      <body className='overscroll-none'>
         {children}
         <Analytics />
       </body>

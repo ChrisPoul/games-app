@@ -67,7 +67,7 @@ export default function Page() {
   }, [snake])
 
   // the required distance between touchStart and touchEnd to be detected as a swipe
-  const minSwipeDistance = 30
+  const minSwipeDistance = 60
   function onTouchStart(event: TouchEvent<HTMLDivElement>) {
     setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
     const x = event.targetTouches[0].clientX

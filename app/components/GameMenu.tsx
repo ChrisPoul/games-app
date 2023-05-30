@@ -12,7 +12,7 @@ export default function GameMenuComponent({ isOpen, children }: GameMenuProps) {
   return (
     <Fragment>
       <Overlay isOpen={isOpen}>
-        <div className="lg:h-[50%] xs:h-[70%] lg:w-[50%] xs:w-[80%] bg-white rounded-2xl m-auto pt-20 space-y-4 relative text-center">
+        <div className="lg:h-[70%] xs:h-[70%] lg:w-[50%] xs:w-[80%] bg-white rounded-2xl m-auto pt-20 space-y-4 relative text-center">
           {children}
           <div>
             <Link href="/">

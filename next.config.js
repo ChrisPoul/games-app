@@ -4,6 +4,14 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'm.media-amazon.com'
+      },
+    ],
+  },
 }
 const withPWA = require("next-pwa")({
   dest: "public",

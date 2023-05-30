@@ -1,32 +1,38 @@
 "use client"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getRandomInt } from "../common";
-import { getMoviesRequest } from "./game";
+import { getMoviesRequest } from "./requests";
 import Image from "next/image";
 
 export default function Page() {
+  const movies = useRef<Movie[]>([])
   const [movie, setMovie] = useState<Movie>({
     titleText: { text: "" },
-    primaryImage: { width: 100, height: 100, url: "#" },
+    primaryImage: { width: 490, height: 750, url: "/default_image.png" },
     releaseDate: { day: 0, month: 0, year: 0 }
   })
 
   useEffect(() => {
-    setNewMovie()
-  }, [])
-  function setNewMovie() {
-    getMoviesRequest().then((movies) => {
-      const randomIndex = getRandomInt(49)
-      const newMovie = movies[randomIndex]
-      setMovie(newMovie)
+    getMoviesRequest().then((newMovies) => {
+      movies.current = newMovies
+      setNewMovie()
     })
+  }, [])
+
+  function setNewMovie() {
+    const randomIndex = getRandomInt(9)
+    const movie = movies.current[randomIndex]
+    setMovie(movie)
   }
 
   return (
-    <div className=" bg-violet-400 h-screen pt-32">
-      <h3 className=" font-extrabold text-5xl fixed top-5 left-9">¡Actúalo!</h3>
-      <div className=" bg-pink-200 border-2 shadow-lg m-auto relative rounded-3xl w-[25em] h-[70vh] text-center">
-        <Image className=" max-h-[65%] max-w-full m-auto mt-7"
+    <div className=" bg-violet-400 h-screen">
+      <h3 className=" font-extrabold text-5xl p-5">
+        ¡Actúalo!
+      </h3>
+      <div className="text-center p-3">
+        <Image className="max-w-full m-auto mt-7"
+          width={movie.primaryImage.width} height={movie.primaryImage.height}
           src={movie.primaryImage.url} alt={movie.titleText.text} />
         <h1 className=" font-semibold text-xl m-3">{movie.titleText?.text}</h1>
         <h2>{movie.releaseDate?.year}</h2>

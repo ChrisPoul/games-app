@@ -5,23 +5,33 @@ import { getMoviesRequest } from "./requests";
 import Image from "next/image";
 
 export default function Page() {
-  const movies = useRef<Movie[]>([])
+  const moviesCache = useRef<Movie[]>([])
+  const index = useRef(0)
   const [movie, setMovie] = useState<Movie>({
     titleText: { text: "" },
-    primaryImage: { width: 490, height: 750, url: "/default_image.png" },
+    primaryImage: { width: 0, height: 0, url: "/default_image.png" },
     releaseDate: { day: 0, month: 0, year: 0 }
   })
+  const [imageIsLoaded, setImageLoaded] = useState(false)
 
   useEffect(() => {
-    getMoviesRequest().then((newMovies) => {
-      movies.current = newMovies
-      setNewMovie()
-    })
+    refreshMoviesCache()
   }, [])
 
+  function refreshMoviesCache() {
+    getMoviesRequest().then((newMovies) => {
+      moviesCache.current = newMovies
+      setNewMovie()
+    })
+  }
   function setNewMovie() {
-    const randomIndex = getRandomInt(9)
-    const movie = movies.current[randomIndex]
+    if (index.current == 49) {
+      refreshMoviesCache()
+      index.current = 0
+      return
+    }
+    const movie = moviesCache.current[index.current]
+    index.current += 1
     setMovie(movie)
   }
 

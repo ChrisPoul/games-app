@@ -1,8 +1,7 @@
 "use client"
 import { useEffect, useRef, useState } from "react";
-import { getRandomInt } from "../common";
 import { getMoviesRequest } from "./requests";
-import Image from "next/image";
+import MovieImageComponent from "./components/MovieImage";
 
 export default function Page() {
   const moviesCache = useRef<Movie[]>([])
@@ -12,7 +11,6 @@ export default function Page() {
     primaryImage: { width: 0, height: 0, url: "/default_image.png" },
     releaseDate: { day: 0, month: 0, year: 0 }
   })
-  const [imageIsLoaded, setImageLoaded] = useState(false)
 
   useEffect(() => {
     refreshMoviesCache()
@@ -40,16 +38,10 @@ export default function Page() {
       <h3 className=" font-extrabold text-5xl p-8">
         ¡Actúalo!
       </h3>
-      <div className="relative h-full max-h-[65vh] max-w-[96vw] m-auto">
-        <Image className="object-contain"
-          src={movie.primaryImage.url}
-          alt={movie.titleText.text}
-          fill
-        />
-      </div>
+      {MovieImageComponent(movie.primaryImage)}
       <div className="text-center p-3">
-        <h1 className=" font-semibold text-xl m-3">{movie.titleText?.text}</h1>
-        <h2>{movie.releaseDate?.year}</h2>
+        <h1 className=" font-semibold text-xl m-3">{movie.titleText.text}</h1>
+        <h2>{movie.releaseDate.year}</h2>
         <button className=" bg-pink-600 rounded m-3 p-3" onClick={setNewMovie}>
           Otra Pelicula
         </button>

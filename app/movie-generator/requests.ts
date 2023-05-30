@@ -1,15 +1,11 @@
 import axios from "axios"
-import { getRandomInt } from "../common"
-
-
 export async function getMoviesRequest(): Promise<Movie[]> {
   const options = {
     method: 'GET',
     url: 'https://moviesdatabase.p.rapidapi.com/titles',
     params: {
       list: 'most_pop_movies',
-      genre: 'Comedy',
-      limit: 50,
+      limit: 10,
       startYear: 2015,
     },
     headers: {

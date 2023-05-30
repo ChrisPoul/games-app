@@ -4,7 +4,7 @@ import GameObjectComponent from "./GameObject";
 export default function GameMapComponent(snake: GameObject[], food: GameObject[]) {
   return (
     <div
-      className="bg-black m-auto relative rounded w-screen h-screen"
+      className="bg-black m-auto relative w-screen h-screen"
     >
       <div>
         {food.map((foodItem, index) => (

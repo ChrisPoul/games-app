@@ -5,13 +5,17 @@ import Link from "next/link";
 interface GameMenuProps {
   isOpen: boolean
   children: ReactNode
+  title: string
 }
 
-export default function GameMenuComponent({ isOpen, children }: GameMenuProps) {
+export default function GameMenuComponent({ isOpen, children, title }: GameMenuProps) {
 
   return (
     <Overlay isOpen={isOpen}>
       <div className="lg:h-[70%] xs:h-[70%] lg:w-[50%] xs:w-[80%] bg-white rounded-2xl m-auto pt-20 space-y-4 relative text-center">
+        <h1 className="text-5xl font-extrabold leading-none pb-6">
+          {title}
+        </h1>
         {children}
         <div>
           <Link href="/">

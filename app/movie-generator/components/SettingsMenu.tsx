@@ -22,8 +22,7 @@ export default function SettingsMenuComponent() {
 
   return (
     <div>
-      <GameMenuComponent isOpen={isOpen}>
-        <h1 className="text-5xl font-extrabold leading-none pb-6">Configuración</h1>
+      <GameMenuComponent isOpen={isOpen} title="Configuración">
         <button className="bg-gray-400 p-4 rounded block m-auto w-28"
           onClick={toggleMenu}
         >

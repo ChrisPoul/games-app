@@ -27,11 +27,7 @@ export default function SettingsMenuComponent(toggleGameIsRunning: () => void, g
 
   return (
     <div>
-      <GameMenuComponent isOpen={isOpen}>
-        <h1 className="text-5xl font-extrabold leading-none pb-6">
-          Settings
-        </h1>
-        <h2 className="font-bold text-lg">Score: {gameScore}</h2>
+      <GameMenuComponent isOpen={isOpen} title="Configuración">
         <div>
           <h2 className="font-bold text-lg">Configure Miliseconds Per Frame:</h2>
           <input

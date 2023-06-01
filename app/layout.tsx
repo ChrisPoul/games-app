@@ -15,6 +15,7 @@ export default function RootLayout({
     <html lang="en" className='overscroll-none'>
       <head>
         <link rel="manifest" href="/app.webmanifest" />
+        <link rel="apple-touch-icon" href="/icon-192x192.png" />
       </head>
       <body className='overscroll-none'>
         {children}

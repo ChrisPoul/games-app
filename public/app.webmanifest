@@ -1,7 +1,7 @@
 {
     "name": "Game App",
-    "theme_color": "#f69435",
-    "background_color": "#f69435",
+    "theme_color": "#000000",
+    "background_color": "#FFFFFF",
     "display": "standalone",
     "scope": "/",
     "start_url": "/",

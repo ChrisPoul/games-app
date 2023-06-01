@@ -28,7 +28,7 @@ export default function SettingsMenuComponent(toggleGameIsRunning: () => void, g
   return (
     <div>
       <GameMenuComponent isOpen={isOpen}>
-        <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        <h1 className="text-5xl font-extrabold leading-none pb-6">
           Settings
         </h1>
         <h2 className="font-bold text-lg">Score: {gameScore}</h2>

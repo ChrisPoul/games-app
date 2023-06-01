@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getMoviesRequest } from "./requests";
 import MovieImageComponent from "./components/MovieImage";
+import SettingsMenuComponent from "./components/SettingsMenu";
 
 export default function Page() {
   const moviesCache = useRef<Movie[]>([])
@@ -51,6 +52,7 @@ export default function Page() {
           Otra Pelicula
         </button>
       </div>
+      {SettingsMenuComponent()}
     </div>
   )
 }

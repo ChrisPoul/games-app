@@ -1,4 +1,4 @@
-import { Fragment, ReactNode } from "react"
+import { ReactNode } from "react"
 
 interface OverlayProps {
   isOpen: boolean
@@ -6,15 +6,10 @@ interface OverlayProps {
 }
 
 export default function Overlay({ isOpen, children }: OverlayProps) {
-  let display = "hidden"
-  if (isOpen) { display = "flex" }
+  if (!isOpen) { return null }
   return (
-    <Fragment>
-      {isOpen && (
-        <div className={`${display} items-center w-full h-screen top-0 left-0 fixed bg-black bg-opacity-70`}>
-          {children}
-        </div>
-      )}
-    </Fragment >
+    <div className={"flex items-center w-full h-screen top-0 left-0 fixed bg-black bg-opacity-70"}>
+      {children}
+    </div>
   );
 }

@@ -1,24 +1,27 @@
 import Image from "next/image";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
+import LoadingSpinnerComponent from "./LoadingSpinner";
 
-export default function MovieImageComponent(image: PrimaryImage) {
-  const [imageIsLoaded, setImageLoaded] = useState(false)
+interface MovieImageProps {
+  image: PrimaryImage
+  loading: boolean
+  setLoading: Dispatch<SetStateAction<boolean>>
+}
 
-  function onImageLoad() {
-    setImageLoaded(true)
-    console.log("loaded")
-  }
-
+export default function MovieImageComponent({ image, loading, setLoading }: MovieImageProps) {
   return (
     <div className="relative h-full max-h-[65vh] max-w-[96vw] m-auto">
-      <Image className="object-contain"
-        src={image.url}
-        alt="Movie Image"
-        fill
-        onLoad={onImageLoad}
-        placeholder="blur"
-        blurDataURL="/default_image.png"
-      />
+      {LoadingSpinnerComponent(loading)}
+      {image.url &&
+        <Image className="object-contain"
+          src={image.url}
+          alt="Movie Image"
+          fill
+          onLoad={() => setLoading(false)}
+          priority
+          style={{ display: loading ? "none" : "block" }}
+        />
+      }
     </div>
   )
 }

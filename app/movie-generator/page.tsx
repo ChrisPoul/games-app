@@ -8,9 +8,10 @@ export default function Page() {
   const index = useRef(0)
   const [movie, setMovie] = useState<Movie>({
     titleText: { text: "" },
-    primaryImage: { width: 0, height: 0, url: "/default_image.png" },
+    primaryImage: { width: 0, height: 0, url: null },
     releaseDate: { day: 0, month: 0, year: 0 }
   })
+  const [imageLoading, setImageLoading] = useState(true)
 
   useEffect(() => {
     refreshMoviesCache()
@@ -31,6 +32,7 @@ export default function Page() {
     const movie = moviesCache.current[index.current]
     index.current += 1
     setMovie(movie)
+    setImageLoading(true)
   }
 
   return (
@@ -38,7 +40,10 @@ export default function Page() {
       <h3 className=" font-extrabold text-5xl p-8">
         ¡Actúalo!
       </h3>
-      {MovieImageComponent(movie.primaryImage)}
+      <MovieImageComponent
+        image={movie.primaryImage}
+        loading={imageLoading}
+        setLoading={setImageLoading} />
       <div className="text-center p-3">
         <h1 className=" font-semibold text-xl m-3">{movie.titleText.text}</h1>
         <h2>{movie.releaseDate.year}</h2>

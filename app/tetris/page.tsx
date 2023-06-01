@@ -11,15 +11,17 @@ import {
 } from "./game";
 import { Figure } from "./figure";
 import { getFigure } from "./figure";
+import SettingsMenuComponent from "./components/SettingsMenu";
 
 export default function Page() {
   const [gameIsOver, setGameIsOver] = useState(false)
+  const [gameIsRunning, setGameIsRunning] = useState(true)
   let [figure, setFigure] = useState(getFigure("Z"))
   let [placedFigures, setPlacedFigures] = useState<Figure[]>([])
 
   // handle user input
   useEffect(() => {
-    if (gameIsOver) { return }
+    if (!gameIsRunning) { return }
     function handleKeyDown(event: KeyboardEvent) {
       switch (event.key) {
         case "ArrowUp": break
@@ -36,18 +38,17 @@ export default function Page() {
     return function cleanup() {
       document.removeEventListener('keydown', handleKeyDown);
     }
-  }, [placedFigures])
+  }, [placedFigures, gameIsRunning])
   // run game cicle
   useEffect(() => {
-    if (gameIsOver) { return }
+    if (!gameIsRunning) { return }
     const interval = setInterval(() => {
       handleFigureGoingDown()
       setFigure(figure => new Figure(...figure))
-      if (figureReachesTop(figure)) { setGameIsOver(true) }
     }, config.milisecondsPerFrame);
 
     return () => clearInterval(interval);
-  }, [placedFigures])
+  }, [placedFigures, gameIsRunning])
 
   function handleFigureGoingDown() {
     updateFigurePosition(placedFigures, figure, "Down")
@@ -58,10 +59,12 @@ export default function Page() {
       setFigure(generateRandomFigure())
     }
   }
+  function toggleGameIsRunning() { setGameIsRunning(!gameIsRunning) }
 
   return (
     <div className="h-screen pt-6 z--10">
       {GameMapComponent(figure, placedFigures)}
+      {SettingsMenuComponent(toggleGameIsRunning)}
     </div>
   )
 }

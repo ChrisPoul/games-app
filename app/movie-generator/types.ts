@@ -11,7 +11,7 @@ interface TitleText {
 interface PrimaryImage {
   width: number
   height: number
-  url: string
+  url: string | null
 }
 
 interface ReleaseDate {

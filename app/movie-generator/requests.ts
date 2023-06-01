@@ -2,10 +2,10 @@ import axios from "axios"
 export async function getMoviesRequest(): Promise<Movie[]> {
   const options = {
     method: 'GET',
-    url: 'https://moviesdatabase.p.rapidapi.com/titles',
+    url: 'https://moviesdatabase.p.rapidapi.com/titles/random',
     params: {
       list: 'most_pop_movies',
-      limit: 10,
+      limit: 50,
       startYear: 2015,
     },
     headers: {

@@ -8,7 +8,7 @@ interface GameMenuProps {
   title: string
 }
 
-export default function GameMenuComponent({ isOpen, children, title }: GameMenuProps) {
+export default function GameMenu({ isOpen, children, title }: GameMenuProps) {
 
   return (
     <Overlay isOpen={isOpen}>

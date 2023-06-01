@@ -14,7 +14,7 @@ export default function Page() {
   const snakeDirection = useRef("Down")
   const newSnakeDirection = useRef("Down")
   const [food, setFood] = useState<GameObject[]>([])
-  const [snake, setSnake] = useState<GameObject[]>([
+  const [snake, setSnake] = useState([
     new GameObject(Math.floor(getMapWidth() / 2), 0)
   ])
   const [gameIsOver, setGameIsOver] = useState(false)
@@ -30,7 +30,6 @@ export default function Page() {
       config.verticalScaling = 4
       setSnake([new GameObject(Math.floor(getMapWidth() / 2), 0)])
     }
-    addNewFoodItem(food, snake)
     addNewFoodItem(food, snake)
     setFood(food => [...food])
   }, [])

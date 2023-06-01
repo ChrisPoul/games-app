@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getMoviesRequest } from "./requests";
 import MovieImageComponent from "./components/MovieImage";
+import SettingsMenuComponent from "./components/SettingsMenu";
 
 export default function Page() {
   const moviesCache = useRef<Movie[]>([])
@@ -37,7 +38,7 @@ export default function Page() {
 
   return (
     <div className=" text-center bg-violet-400 h-screen">
-      <h3 className=" font-extrabold text-5xl p-8">
+      <h3 className=" font-extrabold text-5xl p-6">
         ¡Actúalo!
       </h3>
       <MovieImageComponent
@@ -51,6 +52,7 @@ export default function Page() {
           Otra Pelicula
         </button>
       </div>
+      {SettingsMenuComponent()}
     </div>
   )
 }

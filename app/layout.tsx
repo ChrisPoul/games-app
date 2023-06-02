@@ -19,7 +19,6 @@ export default function RootLayout({
       </head>
       <body className='overscroll-none'>
         {children}
-        <Analytics />
       </body>
     </html>
   )

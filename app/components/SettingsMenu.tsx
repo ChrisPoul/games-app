@@ -1,5 +1,5 @@
 import { ReactNode, useEffect } from "react";
-import { BsFillPauseFill } from "react-icons/bs"
+import { FiSettings } from "react-icons/fi"
 import GameMenu from "@/app/components/GameMenu";
 
 interface SettingsMenuProps {
@@ -36,7 +36,7 @@ export default function SettingsMenu({ isOpen, toggleMenu, children }: SettingsM
         <button className="absolute top-0 right-0 bg-gray-400 p-2 rounded mt-1 mr-1"
           onClick={toggleMenu}
         >
-          <BsFillPauseFill />
+          <FiSettings />
         </button>
       }
     </div>

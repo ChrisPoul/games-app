@@ -1,10 +1,8 @@
 import { config } from "./config"
-import { Direction, GameObject } from "./gameObject"
+import { GameObject } from "./gameObject"
 
 const INITIAL_X = Math.floor(config.gameMapWidth / 2)
 const INITIAL_Y = -1
-
-export type FigureName = "I" | "L" | "T" | "O" | "S" | "Z"
 
 export class Figure extends Array<GameObject> {
   constructor(...figureBlocks: GameObject[]) {
@@ -28,7 +26,7 @@ export function getFigure(figureName: FigureName) {
   }
 
   function getIFigure() {
-    const figureColor = "red-600"
+    const figureColor = "red"
     return new Figure(
       new GameObject(INITIAL_X, INITIAL_Y, figureColor),
       new GameObject(INITIAL_X + 1, INITIAL_Y, figureColor),
@@ -37,7 +35,7 @@ export function getFigure(figureName: FigureName) {
     )
   }
   function getLFigure() {
-    const figureColor = "yellow-300"
+    const figureColor = "yellow"
     return new Figure(
       new GameObject(INITIAL_X, INITIAL_Y, figureColor),
       new GameObject(INITIAL_X + 1, INITIAL_Y, figureColor),
@@ -46,7 +44,7 @@ export function getFigure(figureName: FigureName) {
     )
   }
   function getTFigure() {
-    const figureColor = "green-600"
+    const figureColor = "green"
     return new Figure(
       new GameObject(INITIAL_X, INITIAL_Y, figureColor),
       new GameObject(INITIAL_X + 1, INITIAL_Y, figureColor),
@@ -55,7 +53,7 @@ export function getFigure(figureName: FigureName) {
     )
   }
   function getOFigure() {
-    const figureColor = "blue-800"
+    const figureColor = "blue"
     return new Figure(
       new GameObject(INITIAL_X, INITIAL_Y, figureColor),
       new GameObject(INITIAL_X, INITIAL_Y + 1, figureColor),
@@ -64,7 +62,7 @@ export function getFigure(figureName: FigureName) {
     )
   }
   function getSFigure() {
-    const figureColor = "purple-800"
+    const figureColor = "purple"
     return new Figure(
       new GameObject(INITIAL_X, INITIAL_Y + 1, figureColor),
       new GameObject(INITIAL_X + 1, INITIAL_Y + 1, figureColor),
@@ -73,7 +71,7 @@ export function getFigure(figureName: FigureName) {
     )
   }
   function getZFigure() {
-    const figureColor = "gray-400"
+    const figureColor = "aqua"
     return new Figure(
       new GameObject(INITIAL_X, INITIAL_Y, figureColor),
       new GameObject(INITIAL_X + 1, INITIAL_Y, figureColor),

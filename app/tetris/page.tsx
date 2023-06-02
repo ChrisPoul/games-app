@@ -5,7 +5,6 @@ import GameMapComponent from "./components/GameMap";
 import {
   figureCollides, generateRandomFigure,
   updateFigureRotation,
-  figureReachesTop,
   updateFigurePosition,
   updatePlacedFigures
 } from "./game";

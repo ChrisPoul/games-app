@@ -1,7 +1,5 @@
 const DEFAULT_DISTANCE = 1
 
-export type Direction = "Up" | "Left" | "Right" | "Down"
-
 export class GameObject {
   X: number
   Y: number

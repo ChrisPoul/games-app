@@ -1,7 +1,7 @@
 import { getRandomInt } from "../common";
 import { config } from "./config";
-import { FigureName, getFigure } from "./figure";
-import { Direction, GameObject } from "./gameObject";
+import { getFigure } from "./figure";
+import { GameObject } from "./gameObject";
 import { Figure } from "./figure";
 
 export function updateFigurePosition(placedFigures: Figure[], currentFigure: Figure, direction: Direction) {

@@ -33,14 +33,14 @@ export default function Home() {
         </Link>
 
         <Link
-          href="/tetris"
+          href="#"
           className={styles.card}
         >
           <h2 className={inter.className}>
             Tetris <span>-&gt;</span>
           </h2>
           <p className={inter.className}>
-            Un juego de tetris
+            Coming soon
           </p>
         </Link>
 

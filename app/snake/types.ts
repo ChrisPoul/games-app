@@ -1,0 +1,1 @@
+type Difficulty = "Easy" | "Normal" | "Hard" | "Extreme"

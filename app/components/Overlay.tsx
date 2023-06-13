@@ -8,7 +8,7 @@ interface OverlayProps {
 export default function Overlay({ isOpen, children }: OverlayProps) {
   if (!isOpen) { return null }
   return (
-    <div className={"flex items-center w-full h-screen top-0 left-0 fixed bg-black bg-opacity-70"}>
+    <div className="flex items-center w-full h-screen top-0 left-0 fixed bg-black bg-opacity-70">
       {children}
     </div>
   );

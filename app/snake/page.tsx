@@ -100,7 +100,7 @@ export default function Page() {
       onTouchEnd={onTouchEnd}
     >
       {GameMapComponent(snake, food)}
-      {SettingsMenuComponent(toggleGameIsRunning, snake.length)}
+      {SettingsMenuComponent(toggleGameIsRunning)}
       {GameOverScreenComponent(gameIsOver, snake.length)}
     </div>
   )

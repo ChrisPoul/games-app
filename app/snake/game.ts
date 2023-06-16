@@ -34,8 +34,13 @@ export function updatePlayer(snake: GameObject[], food: GameObject[], playerDire
         snake.push(new GameObject(0, 0))
         food.splice(i, 1)
         addNewFoodItem(food, snake)
-        config.milisecondsPerFrame -= config.speedIncrease
-        return
+        switch (config.difficulty) {
+          case "Easy": break
+          case "Normal": config.milisecondsPerFrame -= 1; break
+          case "Hard": config.milisecondsPerFrame -= 2; break
+          case "Extreme": config.milisecondsPerFrame -= 3; break
+        }
+        break
       }
     }
   }

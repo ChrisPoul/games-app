@@ -2,5 +2,5 @@
   "horizontalScaling": 3,
   "verticalScaling": 6,
   "milisecondsPerFrame": 120,
-  "speedIncrease": 1
+  "difficulty": "Normal"
 }

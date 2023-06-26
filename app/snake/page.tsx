@@ -33,6 +33,7 @@ export default function Page() {
     addNewFoodItem(food, snake)
     setFood(food => [...food])
   }, [])
+
   // handle user input
   useEffect(() => {
     if (!gameIsRunning) { return }
@@ -47,6 +48,7 @@ export default function Page() {
       }
     }
   }, [gameIsRunning])
+
   // run game cicle
   useEffect(() => {
     if (!gameIsRunning) { return }
@@ -99,6 +101,7 @@ export default function Page() {
 
     return null
   }
+
   function toggleGameIsRunning() { setGameIsRunning(!gameIsRunning) }
 
   return (

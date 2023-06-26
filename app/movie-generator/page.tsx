@@ -25,7 +25,7 @@ export default function Page() {
     })
   }
   function setNewMovie() {
-    if (index.current == 49) {
+    if (index.current == moviesCache.current.length - 1) {
       refreshMoviesCache()
       index.current = 0
       return

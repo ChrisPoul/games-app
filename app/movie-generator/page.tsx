@@ -1,11 +1,12 @@
 "use client"
 import { useEffect, useRef, useState } from "react";
-import { getMoviesRequest } from "./requests";
+import { getMoviesRequest } from "./api";
 import MovieImageComponent from "./components/MovieImage";
 import SettingsMenuComponent from "./components/SettingsMenu";
 
 export default function Page() {
-  const moviesCache = useRef<Movie[]>([])
+  const moviesCacheRef = useRef<Movie[]>([])
+  const filtersRef = useRef<MovieFilters>({ startYear: 1990 })
   const index = useRef(0)
   const [movie, setMovie] = useState<Movie>({
     titleText: { text: "" },
@@ -19,18 +20,19 @@ export default function Page() {
   }, [])
 
   function refreshMoviesCache() {
-    getMoviesRequest().then((newMovies) => {
-      moviesCache.current = newMovies
+    getMoviesRequest(filtersRef.current).then((newMovies) => {
+      console.log(filtersRef.current)
+      moviesCacheRef.current = newMovies
       setNewMovie()
     })
   }
   function setNewMovie() {
-    if (index.current == moviesCache.current.length - 1) {
+    if (index.current == moviesCacheRef.current.length - 1) {
       refreshMoviesCache()
       index.current = 0
       return
     }
-    const movie = moviesCache.current[index.current]
+    const movie = moviesCacheRef.current[index.current]
     index.current += 1
     setMovie(movie)
     setImageLoading(true)
@@ -52,7 +54,7 @@ export default function Page() {
           Otra Pelicula
         </button>
       </div>
-      {SettingsMenuComponent()}
+      {SettingsMenuComponent(filtersRef, refreshMoviesCache)}
     </div>
   )
 }

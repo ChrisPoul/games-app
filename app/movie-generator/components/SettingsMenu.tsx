@@ -30,20 +30,24 @@ export default function SettingsMenuComponent(filtersRef: MutableRefObject<Movie
 
   return (
     <SettingsMenu isOpen={isOpen} openMenu={openMenu} closeMenu={closeMenu}>
-      <h3>Starting Year:</h3>
-      <p>{startYear}</p>
-      <input type="range"
-        value={startYear}
-        min={1950}
-        max={2022}
-        onChange={changeStartYear}
-      />
-      <h1>Genre:</h1>
-      <select value={genre} onChange={changeGenre}>
-        {genres.map((genre) => (
-          <option key={genre} value={genre}>{genre}</option>
-        ))}
-      </select>
+      <div>
+        <h3>Starting Year:</h3>
+        <p>{startYear}</p>
+        <input type="range"
+          value={startYear}
+          min={1950}
+          max={2022}
+          onChange={changeStartYear}
+        />
+      </div>
+      <div>
+        <h1>Genre:</h1>
+        <select value={genre} onChange={changeGenre}>
+          {genres.map((genre) => (
+            <option key={genre} value={genre}>{genre}</option>
+          ))}
+        </select>
+      </div>
     </SettingsMenu >
   )
 }

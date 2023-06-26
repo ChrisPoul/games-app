@@ -4,14 +4,17 @@ import GameMenu from "@/app/components/GameMenu";
 
 interface SettingsMenuProps {
   isOpen: boolean
-  toggleMenu: () => void
+  openMenu: () => void
+  closeMenu: () => void
   children: ReactNode
 }
 
-export default function SettingsMenu({ isOpen, toggleMenu, children }: SettingsMenuProps) {
+export default function SettingsMenu({ isOpen, openMenu, closeMenu, children }: SettingsMenuProps) {
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key == "Escape") { toggleMenu() }
+      if (event.key == "Escape") {
+        toggleMenu()
+      }
     }
     document.addEventListener("keydown", handleKeyDown)
 
@@ -20,13 +23,18 @@ export default function SettingsMenu({ isOpen, toggleMenu, children }: SettingsM
     }
   }, [isOpen])
 
+  function toggleMenu() {
+    if (isOpen) { closeMenu() }
+    else { openMenu() }
+  }
+
   return (
     <div>
       <GameMenu isOpen={isOpen} title="Settings">
         {children}
         <button
           className="bg-gray-400 p-4 rounded block m-auto w-28"
-          onClick={toggleMenu}
+          onClick={closeMenu}
         >
           Continue
         </button>
@@ -34,7 +42,7 @@ export default function SettingsMenu({ isOpen, toggleMenu, children }: SettingsM
       {
         !isOpen &&
         <button className="absolute top-0 right-0 bg-gray-400 p-2 rounded mt-1 mr-1"
-          onClick={toggleMenu}
+          onClick={openMenu}
         >
           <FiSettings />
         </button>

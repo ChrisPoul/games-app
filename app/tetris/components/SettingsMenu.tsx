@@ -10,7 +10,7 @@ export default function SettingsMenuComponent(toggleGameIsRunning: () => void) {
   }
 
   return (
-    <SettingsMenu isOpen={isOpen} toggleMenu={toggleMenu}>
+    <SettingsMenu isOpen={isOpen} openMenu={toggleMenu} closeMenu={toggleMenu}>
       <div>
 
       </div>

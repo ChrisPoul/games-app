@@ -87,7 +87,6 @@ export default function Page() {
     if (swipeDirection) {
       newSnakeDirection.current = swipeDirection
     }
-
   }
   function getSwipeDirection(touchStart: [number, number], touchEnd: [number, number]) {
     const minSwipeDistance = 50

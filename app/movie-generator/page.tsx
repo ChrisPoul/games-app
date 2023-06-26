@@ -39,7 +39,7 @@ export default function Page() {
   return (
     <div className=" text-center bg-violet-400 h-screen">
       <h3 className=" font-extrabold text-5xl p-6">
-        ¡Actúalo!
+        Movie Generator
       </h3>
       <MovieImageComponent
         image={movie.primaryImage}

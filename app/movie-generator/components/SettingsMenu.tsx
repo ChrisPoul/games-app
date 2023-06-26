@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { ChangeEvent, MutableRefObject, useEffect, useRef, useState } from "react";
 import SettingsMenu from "@/app/components/SettingsMenu";
 import { getMovieGenresRequest } from "../api";
 
@@ -12,7 +12,6 @@ export default function SettingsMenuComponent(filtersRef: MutableRefObject<Movie
     getMovieGenresRequest().then((genres) => {
       genres[0] = "All"
       genresRef.current = genres
-      console.log(genres)
     })
   }, [])
 
@@ -21,8 +20,8 @@ export default function SettingsMenuComponent(filtersRef: MutableRefObject<Movie
     setIsOpen(false)
     refreshMoviesCache()
   }
-  function changeGenre(event: any) {
-    let newGenre: string = event.target.value
+  function changeGenre(event: ChangeEvent<HTMLSelectElement>) {
+    let newGenre: string = event.currentTarget.value
     if (newGenre == "All") {
       filtersRef.current.genre = null
     } else {
@@ -30,8 +29,8 @@ export default function SettingsMenuComponent(filtersRef: MutableRefObject<Movie
     }
     setGenre(newGenre)
   }
-  function changeStartYear(event: any) {
-    const newStartYear: number = event.target.value
+  function changeStartYear(event: ChangeEvent<HTMLInputElement>) {
+    const newStartYear = +event.target.value
     filtersRef.current.startYear = newStartYear
     setStartYear(newStartYear)
   }

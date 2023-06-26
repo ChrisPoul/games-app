@@ -21,7 +21,6 @@ export default function Page() {
 
   function refreshMoviesCache() {
     getMoviesRequest(filtersRef.current).then((newMovies) => {
-      console.log(filtersRef.current)
       moviesCacheRef.current = newMovies
       setNewMovie()
     })
@@ -47,8 +46,8 @@ export default function Page() {
         image={movie.primaryImage}
         loading={imageLoading}
         setLoading={setImageLoading} />
-      <div className="text-center p-3">
-        <h1 className=" font-semibold text-xl m-3">{movie.titleText.text}</h1>
+      <div className="text-center">
+        <h1 className=" font-semibold text-2xl m-3">{movie.titleText.text}</h1>
         <h2>{movie.releaseDate.year}</h2>
         <button className=" bg-pink-600 rounded m-3 p-3" onClick={setNewMovie}>
           Otra Pelicula

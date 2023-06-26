@@ -12,7 +12,7 @@ export default function GameMenu({ isOpen, children, title }: GameMenuProps) {
 
   return (
     <Overlay isOpen={isOpen}>
-      <div className="lg:h-[70%] xs:h-[70%] lg:w-[50%] xs:w-[80%] bg-white rounded-2xl m-auto pt-20 space-y-4 relative text-center">
+      <div className="lg:h-[70%] xs:h-[70%] lg:w-[50%] xs:w-[80%] bg-white rounded-2xl m-auto pt-16 space-y-4 relative text-center">
         <h1 className="text-5xl font-extrabold leading-none pb-6">
           {title}
         </h1>

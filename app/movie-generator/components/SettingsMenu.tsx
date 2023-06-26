@@ -39,9 +39,10 @@ export default function SettingsMenuComponent(filtersRef: MutableRefObject<Movie
   return (
     <SettingsMenu isOpen={isOpen} openMenu={openMenu} closeMenu={closeMenu}>
       <div>
-        <h3>Starting Year:</h3>
+        <h1 className="font-bold text-lg">Starting Year:</h1>
         <p>{startYear}</p>
-        <input type="range"
+        <input className="appearance-none rounded-lg bg-gray-300"
+          type="range"
           value={startYear}
           min={1950}
           max={2022}
@@ -49,8 +50,11 @@ export default function SettingsMenuComponent(filtersRef: MutableRefObject<Movie
         />
       </div>
       <div>
-        <h1>Genre:</h1>
-        <select value={genre} onChange={changeGenre}>
+        <h1 className="font-bold text-lg">Genre:</h1>
+        <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          value={genre}
+          onChange={changeGenre}
+        >
           {genresRef.current.map((genre) => (
             <option key={genre} value={genre}>{genre}</option>
           ))}

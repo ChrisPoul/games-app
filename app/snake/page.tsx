@@ -33,6 +33,7 @@ export default function Page() {
     addNewFoodItem(food, snake)
     setFood(food => [...food])
   }, [])
+
   // handle user input
   useEffect(() => {
     if (!gameIsRunning) { return }
@@ -47,6 +48,7 @@ export default function Page() {
       }
     }
   }, [gameIsRunning])
+
   // run game cicle
   useEffect(() => {
     if (!gameIsRunning) { return }
@@ -70,7 +72,6 @@ export default function Page() {
   }, [snake, gameIsRunning])
 
   // touch support
-  const minSwipeDistance = 60
   function onTouchStart(event: TouchEvent<HTMLDivElement>) {
     setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
     const x = event.targetTouches[0].clientX
@@ -84,13 +85,23 @@ export default function Page() {
   }
   function onTouchEnd() {
     if (!touchStart || !touchEnd) return
+    const swipeDirection = getSwipeDirection(touchStart, touchEnd)
+    if (swipeDirection) {
+      newSnakeDirection.current = swipeDirection
+    }
+  }
+  function getSwipeDirection(touchStart: [number, number], touchEnd: [number, number]) {
+    const minSwipeDistance = 50
     const xDistance = touchStart[0] - touchEnd[0]
     const yDistance = touchStart[1] - touchEnd[1]
-    if (xDistance > minSwipeDistance) { newSnakeDirection.current = "Left" }
-    else if (xDistance < -minSwipeDistance) { newSnakeDirection.current = "Right" }
-    if (yDistance > minSwipeDistance) { newSnakeDirection.current = "Up" }
-    else if (yDistance < -minSwipeDistance) { newSnakeDirection.current = "Down" }
+    if (xDistance > minSwipeDistance) { return "Left" }
+    else if (xDistance < -minSwipeDistance) { return "Right" }
+    if (yDistance > minSwipeDistance) { return "Up" }
+    else if (yDistance < -minSwipeDistance) { return "Down" }
+
+    return null
   }
+
   function toggleGameIsRunning() { setGameIsRunning(!gameIsRunning) }
 
   return (

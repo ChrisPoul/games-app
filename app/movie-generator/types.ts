@@ -19,3 +19,9 @@ interface ReleaseDate {
   month: number
   year: number
 }
+
+interface MovieFilters {
+  genre?: string | null
+  startYear?: number
+  endYear?: number
+}

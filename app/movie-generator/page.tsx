@@ -21,7 +21,6 @@ export default function Page() {
 
   function refreshMoviesCache() {
     getMoviesRequest(filtersRef.current).then((newMovies) => {
-      console.log(filtersRef.current)
       moviesCacheRef.current = newMovies
       setNewMovie()
     })

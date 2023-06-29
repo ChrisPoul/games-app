@@ -33,7 +33,7 @@ export default function SettingsMenu({ isOpen, openMenu, closeMenu, children }: 
       <GameMenu isOpen={isOpen} title="Settings">
         {children}
         <button
-          className=" bg-green-500 p-4 rounded block m-auto w-28"
+          className="bg-blue-500 dark:bg-blue-700 p-4 rounded block m-auto w-28"
           onClick={closeMenu}
         >
           Continue

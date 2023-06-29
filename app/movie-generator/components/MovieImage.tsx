@@ -20,7 +20,7 @@ export default function MovieImageComponent({ image, loading, setLoading }: Movi
         onLoad={() => setLoading(false)}
         priority
         style={loading ? { display: "none" } : { display: "block" }}
-        sizes="(max-width: 768px) 20vw, 25vw"
+        sizes="(max-width: 768px) 35vw, 25vw"
       />
     </div>
   )

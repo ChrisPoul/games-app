@@ -33,7 +33,7 @@ export default function SettingsMenu({ isOpen, openMenu, closeMenu, children }: 
       <GameMenu isOpen={isOpen} title="Settings">
         {children}
         <button
-          className="bg-gray-400 p-4 rounded block m-auto w-28"
+          className=" bg-green-500 p-4 rounded block m-auto w-28"
           onClick={closeMenu}
         >
           Continue
@@ -41,7 +41,7 @@ export default function SettingsMenu({ isOpen, openMenu, closeMenu, children }: 
       </GameMenu>
       {
         !isOpen &&
-        <button className="absolute top-0 right-0 bg-gray-400 p-2 rounded mt-1 mr-1"
+        <button className="absolute top-0 right-0 bg-gray-500 p-2 rounded mt-1 mr-1"
           onClick={openMenu}
         >
           <FiSettings />

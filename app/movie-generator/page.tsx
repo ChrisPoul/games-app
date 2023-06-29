@@ -1,8 +1,8 @@
 "use client"
 import { useEffect, useRef, useState } from "react";
 import { getMoviesRequest } from "./api";
-import MovieImageComponent from "./components/MovieImage";
 import SettingsMenuComponent from "./components/SettingsMenu";
+import MovieComponent from "./components/Movie";
 
 export default function Page() {
   const moviesCacheRef = useRef<Movie[]>([])
@@ -38,18 +38,15 @@ export default function Page() {
   }
 
   return (
-    <div className=" text-center bg-violet-400 dark:bg-black h-screen pt-10 dark:text-white">
-      <MovieImageComponent
-        image={movie.primaryImage}
-        loading={imageLoading}
-        setLoading={setImageLoading} />
-      <div className="text-center">
-        <h1 className="font-semibold text-2xl m-3">{movie.titleText.text}</h1>
-        <h2 className="text-lg font-medium">{movie.releaseDate.year}</h2>
-        <button className=" bg-pink-600 rounded m-3 p-3" onClick={setNewMovie}>
-          Otra Pelicula
-        </button>
-      </div>
+    <div className="text-center bg-violet-400 dark:bg-black h-screen pt-10 flex flex-col">
+      <MovieComponent
+        movie={movie}
+        imageLoading={imageLoading}
+        setImageLoading={setImageLoading}
+      />
+      <button className=" bg-pink-600 rounded p-3 m-auto mb-6" onClick={setNewMovie}>
+        Otra Pelicula
+      </button>
       {SettingsMenuComponent(filtersRef, refreshMoviesCache)}
     </div>
   )

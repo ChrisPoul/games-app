@@ -17,7 +17,7 @@ export default function RootLayout({
         <link rel="manifest" href="/app.webmanifest" />
         <link rel="apple-touch-icon" href="/icon-192x192.png" />
       </head>
-      <body className='overscroll-none'>
+      <body className='overscroll-none dark:text-white'>
         {children}
         <Analytics />
       </body>

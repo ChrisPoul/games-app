@@ -38,15 +38,15 @@ export default function Page() {
   }
 
   return (
-    <div className=" text-center bg-black h-screen pt-10">
+    <div className=" text-center bg-violet-400 dark:bg-black h-screen pt-10 dark:text-white">
       <MovieImageComponent
         image={movie.primaryImage}
         loading={imageLoading}
         setLoading={setImageLoading} />
       <div className="text-center">
-        <h1 className=" font-semibold text-2xl m-3 text-white">{movie.titleText.text}</h1>
-        <h2 className=" text-lg text-white">{movie.releaseDate.year}</h2>
-        <button className=" bg-pink-600 text-white rounded m-3 p-3" onClick={setNewMovie}>
+        <h1 className="font-semibold text-2xl m-3">{movie.titleText.text}</h1>
+        <h2 className="text-lg font-medium">{movie.releaseDate.year}</h2>
+        <button className=" bg-pink-600 rounded m-3 p-3" onClick={setNewMovie}>
           Otra Pelicula
         </button>
       </div>

@@ -38,7 +38,7 @@ export default function Page() {
   }
 
   return (
-    <div className=" text-center bg-violet-400 dark:bg-black h-screen pt-10 dark:text-white">
+    <div className=" text-center bg-violet-400 dark:bg-black h-screen pt-10">
       <MovieImageComponent
         image={movie.primaryImage}
         loading={imageLoading}

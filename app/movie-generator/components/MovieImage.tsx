@@ -17,11 +17,10 @@ export default function MovieImageComponent({ image, loading, setLoading }: Movi
         src={image.url ? image.url : "/No-Image-Placeholder.svg.png"}
         alt="Movie Image"
         fill
-        unoptimized
         onLoad={() => setLoading(false)}
         priority
         style={loading ? { display: "none" } : { display: "block" }}
-        sizes="(max-width: 768px) 30vw, 25vw"
+        sizes="(max-width: 768px) 35vw, 25vw"
       />
     </div>
   )

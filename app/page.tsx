@@ -30,7 +30,7 @@ export default function Home() {
       <h1 className=' text-8xl m-16'>Games App</h1>
       <div className='grid grid-cols-2 gap-4 m-auto w-[70vw]'>
         {games.map((game) => (
-          <Link className='border' href={game.route}>
+          <Link className='border' href={game.route} key={game.title}>
             <h2>
               {game.title} <span>-&gt;</span>
             </h2>

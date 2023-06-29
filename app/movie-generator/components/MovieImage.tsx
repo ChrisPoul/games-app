@@ -9,8 +9,9 @@ interface MovieImageProps {
 }
 
 export default function MovieImageComponent({ image, loading, setLoading }: MovieImageProps) {
+
   return (
-    <div className="relative h-full max-h-[70vh] max-w-[96vw] m-auto">
+    <div className="relative grow">
       {loading && LoadingSpinnerComponent()}
       <Image className="object-contain"
         src={image.url ? image.url : "/No-Image-Placeholder.svg.png"}

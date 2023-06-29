@@ -4,6 +4,22 @@
 
 @layer base {
   button, input[type=button] {
-    @apply dark:text-white;
+    @apply dark:text-violet-100;
+  }
+  /* width */
+  ::-webkit-scrollbar {
+    @apply w-2
+  }
+  /* Track */
+  ::-webkit-scrollbar-track {
+    @apply bg-inherit
+  }
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    @apply bg-pink-200 dark:bg-violet-600 rounded-xl
+  }
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-violet-800
   }
 }

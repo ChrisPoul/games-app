@@ -40,7 +40,7 @@ export default function SettingsMenuComponent(filtersRef: MutableRefObject<Movie
       <div>
         <h1 className="font-bold text-lg">Starting Year:</h1>
         <p>{startYear}</p>
-        <input className="h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 dark:accent-pink-600"
+        <input className="h-2 bg-gray-400 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 dark:accent-pink-600"
           type="range"
           value={startYear}
           min={1950}
@@ -50,7 +50,7 @@ export default function SettingsMenuComponent(filtersRef: MutableRefObject<Movie
       </div>
       <div>
         <h1 className="font-bold text-lg">Genre:</h1>
-        <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-violet-500"
+        <select className="bg-gray-300 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-violet-100 dark:focus:border-violet-500"
           value={genre}
           onChange={changeGenre}
         >
